@@ -1,0 +1,188 @@
+body
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	margin: 0;
+	background-color: #bffbff
+}
+
+.toolbar
+{
+	position: fixed;
+	left: 0;
+	top: 0;	
+	width: 100%;
+	height: 75px;
+	background-color: #00eeff;	
+	text-align: center;
+}
+
+.logo
+{
+	width: 50px;
+	height: 50px;
+	padding: 10px;
+	background-image: url(gen.png);
+	background-size: cover;
+	float: left;
+	
+}
+
+.menu
+{
+	position: absolute;
+	right: 0;
+	padding: 10px;
+	text-align: center;
+	margin-right: 0;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	list-style-type: none;
+}
+
+.menu > li
+{
+	float: left;
+	width: 100px;
+		
+}
+
+
+.menu > li > a
+{
+	text-decoration: none;
+	color: #004045;
+	
+}
+
+.menu > li > a:hover
+{
+	text-decoration: none;
+	color: #004045;
+
+}
+
+
+.konfigurator
+{
+	margin-top: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+	text-align: center;
+	color: #004045;
+	
+}
+
+.grupa1
+{
+
+
+}
+
+.grupa2
+{
+
+
+}
+
+.grupa3
+{
+	
+}
+
+.event
+{
+	float: left;
+	width: 250px;
+	height: 250px;
+	margin: 15px;
+	padding: 10px;	
+	background-color: white;
+}
+
+
+.footer
+{
+	background-color: #004045;
+	height: 75px;
+	
+}
+
+.socials
+{
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
+}
+
+.fb 
+{
+	width: 55px;
+	height: 55px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float:left;
+}
+
+.fb:hover 
+{
+	background-color: #4668b3;
+}
+	
+.snap 
+{
+	width: 55px;
+	height: 55px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float:left;
+}
+
+.snap:hover 
+{
+	background-color: #fffc00;
+}
+	
+.tw 
+{
+	width: 55px;
+	height: 55px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float:left;
+}
+
+.tw:hover 
+{
+	background-color: #3095d3;
+}
+	
+.insta 
+{
+	width: 55px;
+	height: 55px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float:left;
+}
+
+.insta:hover 
+{
+	background-color: #e1306c;
+}
+	
+.pinterest 
+{
+	width: 55px;
+	height: 55px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float:left;
+}
+
+.pinterest:hover 
+{
+	background-color: #e60023;
+}
