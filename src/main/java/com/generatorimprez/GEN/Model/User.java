@@ -52,4 +52,19 @@ public class User {
         Postgres.Update(sb.toString());
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getReminder() {
+        return reminder;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
 }

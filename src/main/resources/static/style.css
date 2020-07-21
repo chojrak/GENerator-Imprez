@@ -19,12 +19,18 @@ body
 
 .logo
 {
-	width: 50px;
-	height: 50px;
-	padding: 10px;
-	background-image: url(gen.png);
-	background-size: cover;
-	float: left;
+	width:50px;
+	height:50px;
+	padding:10px;
+	background-image:url(gen.png);
+	background-size:cover;
+	float:left;
+	
+}
+
+.logo:hover
+{
+	cursor:pointer;
 	
 }
 
@@ -32,24 +38,31 @@ body
 {
 	position: absolute;
 	right: 0;
-	padding: 10px;
+	padding:0;
+	margin-top:0;
+	height: 75px;
+	line-height: 380%;
 	text-align: center;
 	margin-right: 0;
-	margin-top: 15px;
-	margin-bottom: 15px;
 	list-style-type: none;
+	display: inline-block;
 }
+
+
 
 .menu > li
 {
+	display: block;
 	float: left;
-	width: 100px;
+	width: 120px;
+
 		
 }
 
 
 .menu > li > a
 {
+	display: block;
 	text-decoration: none;
 	color: #004045;
 	
@@ -58,7 +71,8 @@ body
 .menu > li > a:hover
 {
 	text-decoration: none;
-	color: #004045;
+	color: #00eeff;
+	background-color: #bffbff;
 
 }
 
@@ -74,22 +88,7 @@ body
 	
 }
 
-.grupa1
-{
 
-
-}
-
-.grupa2
-{
-
-
-}
-
-.grupa3
-{
-	
-}
 
 .event
 {
@@ -99,21 +98,159 @@ body
 	margin: 15px;
 	padding: 10px;	
 	background-color: white;
+	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+}
+
+.event:first-child
+{
+	background-image:url(img/wesele.jpg);
+	background-size:cover;
+}
+
+.event:nth-child(2)
+{
+	background-image:url(img/urodziny.jpg);
+	background-size:cover;
+}
+.event:nth-child(3)
+{
+	background-image:url(img/kawalerski.jpg);
+	background-size:cover;
+}
+.event:nth-child(4)
+{
+	background-image:url(img/wyjazd_integr.jpg);
+	background-size:cover;
+}
+.event:nth-child(5)
+{
+	background-image:url(img/konferencja.jpg);
+	background-size:cover;
+}
+.event:nth-child(6)
+{
+	background-image:url(img/koncert.jpg);
+	background-size:cover;
+}
+.event:nth-child(7)
+{
+	background-image:url(img/zielona.jpg);
+	background-size:cover;
+}
+.event:nth-child(8)
+{
+	background-image:url(img/survival.jpg);
+	background-size:cover;
+}
+.event:nth-child(9)
+{
+	background-image:url(img/komunia.jpg);
+	background-size:cover;
+}
+.event:nth-child(10)
+{
+	background-image:url(img/sport.jpg);
+	background-size:cover;
+}
+.event:nth-child(11)
+{
+	background-image:url(img/wystawa.jpg);
+	background-size:cover;
+}
+
+.event:hover
+{
+	border: solid 2px;
+		width: 246px;
+	height: 246px;
+
+}
+
+.sign
+{
+	background-color:white;
+	width:300px;
+	padding: 50px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:300px;
+	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+}
+
+input[type=text],
+input[type=password],
+input[list]
+{
+	width:300px;
+	background-color: #efefef;
+	color:#004045;
+	border: 2px solid #bffbff;
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 10px;
+	margin-top: 10px;
+	box-sizing: border-box;
+	outline: none;
+}
+
+input[type=text]:focus,
+input[type=password]:focus
+{
+	-webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
+	box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
+	boarder: 2px solid #bffbff;
+}
+
+input[type=submit]
+{
+	width:300px;
+	background-color: #bffbff;
+	color:#004045;
+	padding: 15px 10px;
+	margin-top: 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	letter-spacing: 2px;
+	outline: none;
+}
+
+input[type=submit]:hover
+{
+	background-color: #02e2f2;
+	cursor: pointer;
+}
+
+
+.signin
+{
 }
 
 
 .footer
 {
+
+	margin-top:500px;
 	background-color: #004045;
 	height: 75px;
+
 	
 }
 
 .socials
 {
-	width: 700px;
+	position:absolute;
+	right:0;
+	width: 475px;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: 0;
 	display: inline-block;
 }
 
@@ -121,6 +258,7 @@ body
 {
 	width: 55px;
 	height: 55px;
+	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -129,12 +267,14 @@ body
 .fb:hover 
 {
 	background-color: #4668b3;
+	cursor:pointer;
 }
 	
 .snap 
 {
 	width: 55px;
 	height: 55px;
+	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -143,12 +283,14 @@ body
 .snap:hover 
 {
 	background-color: #fffc00;
+	cursor:pointer;
 }
 	
 .tw 
 {
 	width: 55px;
 	height: 55px;
+	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -157,12 +299,14 @@ body
 .tw:hover 
 {
 	background-color: #3095d3;
+	cursor:pointer;
 }
 	
 .insta 
 {
 	width: 55px;
 	height: 55px;
+	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -171,12 +315,14 @@ body
 .insta:hover 
 {
 	background-color: #e1306c;
+	cursor:pointer;
 }
 	
 .pinterest 
 {
 	width: 55px;
 	height: 55px;
+	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -185,4 +331,5 @@ body
 .pinterest:hover 
 {
 	background-color: #e60023;
+	cursor:pointer;
 }
