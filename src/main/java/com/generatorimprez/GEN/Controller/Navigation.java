@@ -17,7 +17,14 @@ public class Navigation {
 
     @GetMapping("/zarejestruj")
     public String signUp(Model model) {
+        model.addAttribute("newUser", new User());
         return "zarejestruj";
+    }
+
+    @GetMapping("/o-nas")
+    public String aboutUs(Model model) {
+        model.addAttribute("userList", User.getAllUsers());
+        return "onas";
     }
 
     @GetMapping("/zaloguj")
@@ -25,8 +32,13 @@ public class Navigation {
         return "zaloguj";
     }
 
-    @PostMapping("/zarejestruj")
-    public String getKontakt(@ModelAttribute User user) {
-            return "redirect:/zaloguj";
-        }
+    @PostMapping("/new-user")
+    public String newUser(@ModelAttribute User user) {
+        if(!user.getUsername().equals("") && !user.getPassword().equals("") && !User.chckUsername(user.getUsername()))
+         User.addUserToDB(user);
+        //System.out.println(user);
+        return "redirect:/o-nas";
+    }
+
+
 }

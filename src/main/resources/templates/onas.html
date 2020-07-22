@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>GENerator imprez. Imprezę mamy w genach</title>
+
+    <meta name="description" content="Zamów imprezę, resztą zajmiemy się my."/>
+    <meta name="keywords"
+          content="impreza, wesele, panieński, kawalerski, koncert, alkohol, szkolenie, event, urodziny"/>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/fontello.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="toolbar">
+    <a href="/">
+        <div class="logo"></div>
+    </a>
+    <ul class="menu">
+        <li><a href="/oferta">Oferta</a></li>
+        <li><a href="/o-nas">O nas</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/zarejestruj">Zarejestruj</a></li>
+        <li><a href="/zaloguj">Zaloguj</a></li>
+    </ul>
+
+</div>
+<div style="clear:both"></div>
+
+<div class="sign">
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.getUsername()}"></td><br/>
+    </tr>
+</div>
+
+
+<div class="footer">
+    <a href="/">
+        <div class="logo"></div>
+    </a>
+    <div class="socials">
+        <div class="fb"><i class="icon-facebook"></i></div>
+        <div class="snap"><i class="icon-snapchat-ghost"></i></div>
+        <div class="tw"><i class="icon-twitter"></i></div>
+        <div class="insta"><i class="icon-instagram"></i></div>
+        <div class="pinterest"><i class="icon-pinterest"></i></div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+</body>
+</html>

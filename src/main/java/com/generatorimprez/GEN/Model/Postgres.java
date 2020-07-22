@@ -98,8 +98,8 @@ public class Postgres implements Serializable {
     }
 
     public static void newDatabase() {
-        String user = JOptionPane.showInputDialog("Podaj login, domyślny dla PostgreSQL to postgres");
-        String password = JOptionPane.showInputDialog("Podaj hasło");
+        String user = JOptionPane.showInputDialog(null, "Podaj login, domyślny dla PostgreSQL to postgres", "SQL", JOptionPane.INFORMATION_MESSAGE);
+        String password = JOptionPane.showInputDialog(null, "Podaj hasło", "SQL", JOptionPane.INFORMATION_MESSAGE);
         try {
             Connection con = DriverManager.getConnection("jdbc:postgresql:", user, password);
             Statement stm = con.createStatement();
@@ -110,6 +110,8 @@ public class Postgres implements Serializable {
         new Postgres(user, password);
         Update("create table users ( id_user serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id_user) );");
     }
+
+    public static void start () {}
 
 
 

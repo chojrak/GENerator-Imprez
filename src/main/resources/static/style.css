@@ -15,6 +15,7 @@ body
 	height: 75px;
 	background-color: #00eeff;	
 	text-align: center;
+	z-index: 100;
 }
 
 .logo
@@ -101,6 +102,7 @@ body
 	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	opacity: 75%;
 }
 
 .event:first-child
@@ -163,8 +165,9 @@ body
 .event:hover
 {
 	border: solid 2px;
-		width: 246px;
+	width: 246px;
 	height: 246px;
+	opacity: 100%;
 
 }
 

@@ -1,12 +1,14 @@
 package com.generatorimprez.GEN.Model;
 
 
-
 import org.bouncycastle.util.encoders.Base64;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class User {
     String username;
@@ -15,13 +17,15 @@ public class User {
     String answer;
     boolean admin;
 
+    public User() {
+    }
+
     public User(String username, String password, String reminder, String answer, boolean admin) {
         this.username = username;
         this.password = encodePass(password);
         this.reminder = reminder;
         this.answer = answer;
         this.admin = admin;
-        addUserToDB(username, encodePass(password), reminder, answer, admin);
     }
 
     public static String encodePass(String pass) {
@@ -30,25 +34,34 @@ public class User {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(
                     pass.getBytes(StandardCharsets.UTF_8));
-            sha256hex = new String (Base64.encode(hash));
+            sha256hex = new String(Base64.encode(hash));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return sha256hex;
     }
 
-    public static void addUserToDB(String username, String password, String reminder, String answer, boolean admin) {
+    public static boolean chckUsername(String username) {
+        try {
+            ResultSet rs = Postgres.Execute("select username from users where username like '" + username + "'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void addUserToDB(User user) {
         StringBuilder sb = new StringBuilder();
         sb.append("insert into users (username, reminder, answer, password, admin) values ('");
-        sb.append(username);
+        sb.append(user.getUsername());
         sb.append("', '");
-        sb.append(reminder);
+        sb.append(user.getReminder());
         sb.append("', '");
-        sb.append(answer);
+        sb.append(user.getAnswer());
         sb.append("', '");
-        sb.append(password);
-        sb.append("', ");
-        int i = admin ? 1 : 0;
+        sb.append(encodePass(user.getPassword()));
+        sb.append("', 0)");
         Postgres.Update(sb.toString());
     }
 
@@ -66,5 +79,40 @@ public class User {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setReminder(String reminder) {
+        this.reminder = reminder;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        ArrayList<User> allUsers = new ArrayList<User>();
+        try {
+            ResultSet rs = Postgres.Execute("select * from users");
+            while (rs.next()) {
+                allUsers.add(new User(rs.getString("username"), "", "", "", false));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allUsers;
+    }
+
+
+    public static void main(String[] args) {
+        ArrayList<User> allUsers = getAllUsers();
+        for (User o : allUsers) System.out.println(o.getUsername());
     }
 }

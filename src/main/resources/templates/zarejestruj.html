@@ -23,23 +23,23 @@
 				<li><a href = "/kontakt">Kontakt</a></li>
 				<li><a href = "/zarejestruj">Zarejestruj</a></li>
 				<li><a href = "/zaloguj">Zaloguj</a></li>
-			<ul>
+		</ul>
 	
 	</div>
 	<div style="clear:both"></div>
 	
 	<div class="sign">
-		<form class="signin">
-			<input type="text" placeholder="login">
-			<input type="password" placeholder="hasło">
-			<input type="password" placeholder="powtórz hasło">
-			<input list="questions" placeholder="pytanie pomocnicze"> 
-				<datalist id="questions"> 
+		<form class="signin" th:action="@{/new-user}" th:object="${newUser}" method="post">
+			<input type="text" placeholder="login" th:field="${newUser.username}">
+			<input type="password" placeholder="hasło" th:field="${newUser.password}">
+			<input type="password" placeholder="powtórz hasło" >
+			<input list="questions" placeholder="pytanie pomocnicze" th:field="${newUser.reminder}">
+				<datalist id="questions">
 					<option value="imię pierwszego pupila" /> 
 					<option value="nazwisko panieńskie matki" /> 
 					<option value="data urodzenia" /> 
 				</datalist> 
-			<input type="text" placeholder="odpowiedź">
+			<input type="text" placeholder="odpowiedź" th:field="${newUser.answer}">
 			<input type="submit" value="Zarejestruj się">
 		</form>
 	</div>
