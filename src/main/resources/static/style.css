@@ -3,65 +3,74 @@ body
 	font-family: 'Lato', sans-serif;
 	font-size: 20px;
 	margin: 0;
-	background-color: #bffbff
+	padding:0;
+	/* Background pattern from Toptal Subtle Patterns */
+	background-image:url("img/geometry2.png");
 }
 
-.toolbar
+.navbar
 {
 	position: fixed;
-	left: 0;
-	top: 0;	
+	top: 0;
 	width: 100%;
-	height: 75px;
+}
+
+
+.navbar-light
+{
 	background-color: #00eeff;	
 	text-align: center;
 	z-index: 100;
 }
 
+
+
 .logo
 {
+	display: inline-block;
 	width:50px;
 	height:50px;
-	padding:10px;
 	background-image:url(gen.png);
 	background-size:cover;
 	float:left;
-	
+	margin-right: auto;
 }
 
 .logo:hover
 {
 	cursor:pointer;
+
 	
 }
 
-.menu
+.navbar-toggler-icon
 {
+	color: #004045;
+}
+
+
+
+#menu
+{
+	
+	
 	position: absolute;
-	right: 0;
-	padding:0;
-	margin-top:0;
-	height: 75px;
-	line-height: 380%;
+	right:0;
+	line-height: 300%;
 	text-align: center;
-	margin-right: 0;
 	list-style-type: none;
-	display: inline-block;
+
 }
 
 
 
-.menu > li
+.nav-item
 {
-	display: block;
-	float: left;
 	width: 120px;
-
-		
-}
+	}
 
 
-.menu > li > a
+.nav-link
 {
 	display: block;
 	text-decoration: none;
@@ -69,11 +78,11 @@ body
 	
 }
 
-.menu > li > a:hover
+.nav-link:hover
 {
 	text-decoration: none;
 	color: #00eeff;
-	background-color: #bffbff;
+	background-color: #a8e4ed;
 
 }
 
@@ -81,10 +90,6 @@ body
 .konfigurator
 {
 	margin-top: 200px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 1200px;
-	text-align: center;
 	color: #004045;
 	
 }
@@ -94,95 +99,73 @@ body
 .event
 {
 	float: left;
-	width: 250px;
-	height: 250px;
-	margin: 15px;
-	padding: 10px;	
+	width: 235px;
+	height: 235px;
+	color: white;
+	margin-bottom:25px;
+	position: relative;
+	display: inline-block;
 	background-color: white;
 	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	opacity: 75%;
+	overflow: hidden;
+	text-align: center;
+	transition: .2s ease-in-out;
 }
 
-.event:first-child
-{
-	background-image:url(img/wesele.jpg);
-	background-size:cover;
+
+.event img {
+	height:100%;
 }
 
-.event:nth-child(2)
+
+.event-text
 {
-	background-image:url(img/urodziny.jpg);
-	background-size:cover;
+	width: 235px;
+	height: 235px;
+	display: block;
+	opacity: 100%;
+	bottom: -180px;
+	position: absolute;
+	letter-spacing: 1px;
+	text-shadow: black 1px 1px 0.2px;
 }
-.event:nth-child(3)
+
+.signin
 {
-	background-image:url(img/kawalerski.jpg);
-	background-size:cover;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 10px;
 }
-.event:nth-child(4)
-{
-	background-image:url(img/wyjazd_integr.jpg);
-	background-size:cover;
-}
-.event:nth-child(5)
-{
-	background-image:url(img/konferencja.jpg);
-	background-size:cover;
-}
-.event:nth-child(6)
-{
-	background-image:url(img/koncert.jpg);
-	background-size:cover;
-}
-.event:nth-child(7)
-{
-	background-image:url(img/zielona.jpg);
-	background-size:cover;
-}
-.event:nth-child(8)
-{
-	background-image:url(img/survival.jpg);
-	background-size:cover;
-}
-.event:nth-child(9)
-{
-	background-image:url(img/komunia.jpg);
-	background-size:cover;
-}
-.event:nth-child(10)
-{
-	background-image:url(img/sport.jpg);
-	background-size:cover;
-}
-.event:nth-child(11)
-{
-	background-image:url(img/wystawa.jpg);
-	background-size:cover;
-}
+
+
 
 .event:hover
 {
-	border: solid 2px;
-	width: 246px;
-	height: 246px;
-	opacity: 100%;
+	transform: scale(1.15);
+	opacity:100%;
 
 }
 
-.sign
+
+#sign
 {
-	background-color:white;
-	width:300px;
-	padding: 50px;
-	margin-left:auto;
-	margin-right:auto;
+	background-color:#a8e4ed;
+	min-height: 300px;
 	margin-top:300px;
 	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 }
+
+.error
+{
+	font-size: 15px;
+	color: red;
+}
+
 
 input[type=text],
 input[type=password],
@@ -191,7 +174,7 @@ input[list]
 	width:300px;
 	background-color: #efefef;
 	color:#004045;
-	border: 2px solid #bffbff;
+	border: 2px solid #17a2b8;
 	border-radius: 5px;
 	font-size: 20px;
 	padding: 10px;
@@ -206,13 +189,13 @@ input[type=password]:focus
 	-webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
 	-moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
 	box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.46);
-	boarder: 2px solid #bffbff;
+	boarder: 2px solid #17a2b8;
 }
 
 input[type=submit]
 {
 	width:300px;
-	background-color: #bffbff;
+	background-color: #17a2b8;
 	color:#004045;
 	padding: 15px 10px;
 	margin-top: 20px;
@@ -227,22 +210,24 @@ input[type=submit]
 
 input[type=submit]:hover
 {
-	background-color: #02e2f2;
+	background-color: #0691a7;
 	cursor: pointer;
 }
 
+input[type="radio"] {
 
-.signin
-{
 }
+
 
 
 .footer
 {
 
-	margin-top:500px;
+	margin-top:300px;
 	background-color: #004045;
-	height: 75px;
+	height: 55px;
+	position: relative;
+	text-align: center;
 
 	
 }
@@ -261,7 +246,6 @@ input[type=submit]:hover
 {
 	width: 55px;
 	height: 55px;
-	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -277,7 +261,6 @@ input[type=submit]:hover
 {
 	width: 55px;
 	height: 55px;
-	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -293,7 +276,6 @@ input[type=submit]:hover
 {
 	width: 55px;
 	height: 55px;
-	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -309,7 +291,6 @@ input[type=submit]:hover
 {
 	width: 55px;
 	height: 55px;
-	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;
@@ -325,7 +306,6 @@ input[type=submit]:hover
 {
 	width: 55px;
 	height: 55px;
-	padding:10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	float:left;

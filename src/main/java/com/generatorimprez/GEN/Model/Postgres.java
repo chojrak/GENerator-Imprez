@@ -107,14 +107,78 @@ public class Postgres implements Serializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         new Postgres(user, password);
-        Update("create table users ( id_user serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id_user) );");
+
+        try {
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\static\\sql.data");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            char[] sql = (char[]) ois.readObject();
+
+            ois.close();
+            fis.close();
+            Update(decodeText(sql));
+
+        } catch ( IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void start () {}
 
+  /*  public static void main(String[] args) {
+        char [] s = encodeText("create table users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
+                "create table services (id serial, name varchar(400), choice varchar(4000), primary key (id) ); \n" +
+                "insert into services(name, choice) values ('alkohol', 'multi'),('animator', 'one'),('katering', 'multi'),('lokal'),('nocleg', 'one'),('media', 'multi'),('dodatki', 'multi');\n" +
+                "create table subservices ( id serial, name varchar(400), price float, tax int, pricing varchar(2), service_id int, primary key (id), foreign key(service_id) references services(id) );\n" +
+                "insert into subservices(name, price, tax, pricing, service_id) values\n" +
+                "('impreza bez alkoholu', 0, 0, 'ps', 1),\n" +
+                "('welcome drink', 10, 23, 'pp', 1),\n" +
+                "('piwo', 30, 23, 'pp', 1),\n" +
+                "('wino', 50, 23, 'pp', 1),\n" +
+                "('wódka', 30, 23, 'pp', 1),\n" +
+                "('open bar', 70, 23, 'pp', 1),\n" +
+                "('barman', 1200, 23, 'ps', 1),\n" +
+                "('impreza bez animatora', 0, 0, 'ps', 2),\n" +
+                "('animator dla dzieci', 600, 23, 'ps', 2),\n" +
+                "('DJ', 1000, 23, 'ps', 2),\n" +
+                "('stand-up', 20000, 23, 'ps', 2),\n" +
+                "('koncert', 20000, 23, 'ps', 2),\n" +
+                "('brak jedzenia', 0, 0, 'ps', 3),\n" +
+                "('tort', 50, 23, 'pp', 3),\n" +
+                "('śniadanie', 30, 23, 'pp', 3),\n" +
+                "('obiad', 40, 23, 'pp', 3),\n" +
+                "('kolacja', 40, 23, 'pp', 3),\n" +
+                "('poczęstunek', 20, 23, 'pp', 3),\n" +
+                "('grill/ognisko', 30, 23, 'pp', 3),\n" +
+                "('all inclusive', 100, 23, 'pp', 3),\n" +
+                "('bez noclegu', 0, 0, 'ps', 4),\n" +
+                "('hotel', 150, 23, 'pp', 4),\n" +
+                "('hostel', 100, 23, 'pp', 4),\n" +
+                "('namiot', 50, 23, 'pp', 4),\n" +
+                "('własny lokal', 0, 0, 'ps', 5),\n" +
+                "('sala weselna', 50, 23, 'pp', 5),\n" +
+                "('pole namiotowe', 10, 23, 'pp', 5),\n" +
+                "('hotel', 30, 23, 'pp', 5),\n" +
+                "('restauracja', 50, 23, 'pp', 5),\n" +
+                "('bar', 30, 23, 'pp', 5),\n" +
+                "('klub', 50, 23, 'pp', 5),\n" +
+                "('nie potrzb', 0, 0, 'ps', 1),\n" +
+                "('fotograf', 300, 23, 'ps', 6),\n" +
+                "('pamiątkowy film', 500, 23, 'ps', 6);\n" +
+                "create table package_deals (id serial, offer_type varchar(4000), user_id int, subservice_id int, primary key (id), foreign key(subservice_id) references subservices(id), foreign key(user_id) references users(id));  ");
+        try {
+            FileOutputStream fos = new FileOutputStream("src\\main\\resources\\static\\sql.data");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(s);
+            oos.close();
+            fos.close();
 
-
-}
+        } catch (Exception ex) {
+        }
+    }
+*/
+   }
 
 

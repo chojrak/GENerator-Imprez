@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class User {
     String username;
     String password;
+    String password2;
     String reminder;
     String answer;
     boolean admin;
@@ -86,7 +87,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encodePass(password);
     }
 
     public void setReminder(String reminder) {
@@ -95,6 +96,14 @@ public class User {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = encodePass(password2);
+    }
+
+    public String getPassword2() {
+        return password2;
     }
 
     public static ArrayList<User> getAllUsers() {
@@ -108,6 +117,19 @@ public class User {
             throwables.printStackTrace();
         }
         return allUsers;
+    }
+
+    public boolean isAdmin () {
+        int admin = 0;
+        try {
+            ResultSet rs = Postgres.Execute("select admin from users where username like '"+this.username+"'");
+            while (rs.next()) {
+                admin = rs.getInt("admin");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return (admin==1);
     }
 
 

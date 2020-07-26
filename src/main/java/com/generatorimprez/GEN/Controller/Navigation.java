@@ -1,5 +1,7 @@
 package com.generatorimprez.GEN.Controller;
 
+import com.generatorimprez.GEN.Model.PackageDeal;
+import com.generatorimprez.GEN.Model.Service;
 import com.generatorimprez.GEN.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,12 +34,46 @@ public class Navigation {
         return "zaloguj";
     }
 
-    @PostMapping("/new-user")
-    public String newUser(@ModelAttribute User user) {
-        if(!user.getUsername().equals("") && !user.getPassword().equals("") && !User.chckUsername(user.getUsername()))
-         User.addUserToDB(user);
-        //System.out.println(user);
-        return "redirect:/o-nas";
+    @GetMapping("/zorganizuj-impreze")
+    public String getOferta(Model model, PackageDeal packageDeal) {
+        Service.getServices();
+        model.addAttribute("subServiceNames", packageDeal.getServiceNames());
+        model.addAttribute("multi", Service.multi);
+        model.addAttribute("one", Service.one);
+
+        return "oferta";
+    }
+
+    @PostMapping(value = "/zarejestruj")
+    public String newUser(@ModelAttribute(name = "newUser") User user, Model model) {
+
+        if (!user.getPassword2().equals(user.getPassword()))
+            model.addAttribute("incorrectPassword", true);
+        else model.addAttribute("incorrectPassword", false);
+        if (user.getUsername().isEmpty())
+            model.addAttribute("noUserName", true);
+        else model.addAttribute("noUserName", false);
+        if (user.getReminder().isEmpty())
+            model.addAttribute("noReminder", true);
+        else model.addAttribute("noReminder", false);
+        if (user.getAnswer().isEmpty())
+            model.addAttribute("noAnswer", true);
+        else model.addAttribute("noAnswer", false);
+        if (User.chckUsername(user.getUsername()) && !user.getUsername().isEmpty())
+            model.addAttribute("userExists", true);
+        else model.addAttribute("userExists", false);
+        if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && !user.getReminder().isEmpty() && !user.getAnswer().isEmpty() && !User.chckUsername(user.getUsername())) {
+            User.addUserToDB(user);
+            return "redirect:/o-nas";
+        }
+        return "zarejestruj";
+    }
+
+    @PostMapping("/zorganizuj-impreze")
+    public String newPackageDeal(@ModelAttribute PackageDeal packageDeal, User user, Model model) {
+        System.out.println(packageDeal.getServiceNames());
+
+        return "redirect:/";
     }
 
 
