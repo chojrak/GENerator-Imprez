@@ -39,7 +39,7 @@
 <div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
 <form class="signin" th:action="@{/zorganizuj-impreze}" th:object="${subServiceNames}" method="post">
 <div class="form-group">
-    <span th:each="service : ${multi}">
+    <span th:each="service : ${one}">
     <label th:text="${service.getName()}" for="exampleFormControlSelect1"></label>
     <select   class="form-control" id="exampleFormControlSelect1">
         <option th:each="subService, iter: ${service.getSubServices()}" th:text="${subService.getName()}" <!--th:field="${subServiceNames[__${iter}__]}"--> ></option>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="form-group">
-      <span th:each="service : ${one}">
+      <span th:each="service : ${multi}">
     <label th:text="${service.getName()}" for="exampleFormControlSelect2"></label>
     <select  multiple class="form-control" id="exampleFormControlSelect2">
         <div th:each="subService: ${service.getSubServices()}">

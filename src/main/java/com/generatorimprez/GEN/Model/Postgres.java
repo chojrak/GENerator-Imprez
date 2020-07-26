@@ -98,6 +98,7 @@ public class Postgres implements Serializable {
     }
 
     public static void newDatabase() {
+
         String user = JOptionPane.showInputDialog(null, "Podaj login, domyślny dla PostgreSQL to postgres", "SQL", JOptionPane.INFORMATION_MESSAGE);
         String password = JOptionPane.showInputDialog(null, "Podaj hasło", "SQL", JOptionPane.INFORMATION_MESSAGE);
         try {
@@ -130,7 +131,7 @@ public class Postgres implements Serializable {
   /*  public static void main(String[] args) {
         char [] s = encodeText("create table users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
                 "create table services (id serial, name varchar(400), choice varchar(4000), primary key (id) ); \n" +
-                "insert into services(name, choice) values ('alkohol', 'multi'),('animator', 'one'),('katering', 'multi'),('lokal'),('nocleg', 'one'),('media', 'multi'),('dodatki', 'multi');\n" +
+                "insert into services(name, choice) values ('alkohol', 'multi'),('animator', 'one'),('katering', 'multi'),('lokal', 'one'),('nocleg', 'one'),('media', 'multi'),('dodatki', 'multi');\n" +
                 "create table subservices ( id serial, name varchar(400), price float, tax int, pricing varchar(2), service_id int, primary key (id), foreign key(service_id) references services(id) );\n" +
                 "insert into subservices(name, price, tax, pricing, service_id) values\n" +
                 "('impreza bez alkoholu', 0, 0, 'ps', 1),\n" +
@@ -153,18 +154,18 @@ public class Postgres implements Serializable {
                 "('poczęstunek', 20, 23, 'pp', 3),\n" +
                 "('grill/ognisko', 30, 23, 'pp', 3),\n" +
                 "('all inclusive', 100, 23, 'pp', 3),\n" +
-                "('bez noclegu', 0, 0, 'ps', 4),\n" +
-                "('hotel', 150, 23, 'pp', 4),\n" +
-                "('hostel', 100, 23, 'pp', 4),\n" +
-                "('namiot', 50, 23, 'pp', 4),\n" +
-                "('własny lokal', 0, 0, 'ps', 5),\n" +
-                "('sala weselna', 50, 23, 'pp', 5),\n" +
-                "('pole namiotowe', 10, 23, 'pp', 5),\n" +
-                "('hotel', 30, 23, 'pp', 5),\n" +
-                "('restauracja', 50, 23, 'pp', 5),\n" +
-                "('bar', 30, 23, 'pp', 5),\n" +
-                "('klub', 50, 23, 'pp', 5),\n" +
-                "('nie potrzb', 0, 0, 'ps', 1),\n" +
+                "('własny lokal', 0, 0, 'ps', 4),\n" +
+                "('sala weselna', 50, 23, 'pp', 4),\n" +
+                "('pole namiotowe', 10, 23, 'pp', 4),\n" +
+                "('hotel', 30, 23, 'pp', 4),\n" +
+                "('restauracja', 50, 23, 'pp', 4),\n" +
+                "('bar', 30, 23, 'pp', 4),\n" +
+                "('klub', 50, 23, 'pp', 4),\n" +
+                "('bez noclegu', 0, 0, 'ps', 5),\n" +
+                "('hotel', 150, 23, 'pp', 5),\n" +
+                "('hostel', 100, 23, 'pp', 5),\n" +
+                "('namiot', 50, 23, 'pp', 5),\n" +
+                "('brak', 0, 0, 'ps', 6),\n" +
                 "('fotograf', 300, 23, 'ps', 6),\n" +
                 "('pamiątkowy film', 500, 23, 'ps', 6);\n" +
                 "create table package_deals (id serial, offer_type varchar(4000), user_id int, subservice_id int, primary key (id), foreign key(subservice_id) references subservices(id), foreign key(user_id) references users(id));  ");

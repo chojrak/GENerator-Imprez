@@ -100,4 +100,6 @@ public class Service {
     public static void main(String[] args) {
         for (SubService s : getSubServices("lokal")) System.out.println(s.getName());
     }
+
+
 }
