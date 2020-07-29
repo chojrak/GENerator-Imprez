@@ -10,7 +10,6 @@ public class PackageDeal {
     int idUser;
     String type;
     ArrayList<Integer> subServices;
-    ArrayList<String> serviceNames;
 
     static {
         try {
@@ -23,7 +22,6 @@ public class PackageDeal {
 
     {
         subServices = new ArrayList<Integer>();
-        serviceNames = new ArrayList<String>();
     }
 
     public PackageDeal() {
@@ -85,18 +83,12 @@ public class PackageDeal {
     }
 
     public ArrayList<Integer> getSubServices() {
-        return subServices;
-    }
+        return subServices; }
 
     public void setSubServices(ArrayList<Integer> subServices) {
         this.subServices = subServices;
     }
 
-    public ArrayList<String> getServiceNames() {
-        return serviceNames;
-    }
 
-    public void setServiceNames(ArrayList<String> serviceNames) {
-        this.serviceNames = serviceNames;
-    }
+
 }

@@ -5,7 +5,7 @@ body
 	margin: 0;
 	padding:0;
 	/* Background pattern from Toptal Subtle Patterns */
-	background-image:url("img/geometry2.png");
+	background-image:url('../img/geometry2.png');
 }
 
 .navbar
@@ -30,7 +30,7 @@ body
 	display: inline-block;
 	width:50px;
 	height:50px;
-	background-image:url(gen.png);
+	background-image:url('../img/gen.png');
 	background-size:cover;
 	float:left;
 	margin-right: auto;
@@ -192,7 +192,8 @@ input[type=password]:focus
 	boarder: 2px solid #17a2b8;
 }
 
-input[type=submit]
+input[type=submit],
+input[type=button]
 {
 	width:300px;
 	background-color: #17a2b8;
@@ -208,7 +209,8 @@ input[type=submit]
 	outline: none;
 }
 
-input[type=submit]:hover
+input[type=submit]:hover,
+input[type=button]:hover
 {
 	background-color: #0691a7;
 	cursor: pointer;

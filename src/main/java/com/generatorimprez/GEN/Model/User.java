@@ -61,7 +61,7 @@ public class User {
         sb.append("', '");
         sb.append(user.getAnswer());
         sb.append("', '");
-        sb.append(encodePass(user.getPassword()));
+        sb.append(user.getPassword());
         sb.append("', 0)");
         Postgres.Update(sb.toString());
     }
@@ -130,6 +130,16 @@ public class User {
             throwables.printStackTrace();
         }
         return (admin==1);
+    }
+
+    public boolean chckuser (User user) {
+        try {
+            ResultSet rs = Postgres.Execute("select * from users where username like '"+user.username+"' and password like '"+user.password+"'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
 

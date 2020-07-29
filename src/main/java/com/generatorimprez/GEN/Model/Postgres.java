@@ -34,9 +34,9 @@ public class Postgres implements Serializable {
 
 
     public Postgres(String user, String password) {
-        this.url = encodeText("jdbc:postgresql:generator_imprez");
-        this.user = encodeText(user);
-        this.password = encodeText(password);
+        this.url = Pass.encodeText("jdbc:postgresql:generator_imprez");
+        this.user = Pass.encodeText(user);
+        this.password = Pass.encodeText(password);
         SQLdata.put("url", this.url);
         SQLdata.put("user", this.user);
         SQLdata.put("password", this.password);
@@ -46,7 +46,7 @@ public class Postgres implements Serializable {
     public static ResultSet Execute(String query) {
         try {
 
-            Connection con = DriverManager.getConnection(decodeText(url), decodeText(user), decodeText(password));
+            Connection con = DriverManager.getConnection(Pass.decodeText(url), Pass.decodeText(user), Pass.decodeText(password));
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             return rs;
@@ -59,7 +59,7 @@ public class Postgres implements Serializable {
 
     public static void Update(String query) {
         try {
-            Connection con = DriverManager.getConnection(decodeText(url), decodeText(user), decodeText(password));
+            Connection con = DriverManager.getConnection(Pass.decodeText(url), Pass.decodeText(user), Pass.decodeText(password));
             Statement stm = con.createStatement();
             stm.executeUpdate(query);
         } catch (SQLException throwables) {
@@ -67,23 +67,7 @@ public class Postgres implements Serializable {
         }
     }
 
-    public static char[] encodeText(String text) {
-        char[] chars = new char[text.length()];
-        for (int i = 0; i < text.length(); i++) {
-            chars[i] = text.charAt(i);
-            chars[i]++;
-        }
-        return chars;
-    }
 
-    public static String decodeText(char[] chars) {
-        StringBuilder sb = new StringBuilder();
-        for (char a : chars) {
-            a--;
-            sb.append(a);
-        }
-        return sb.toString();
-    }
 
     public static void saveToFile(HashMap<String, char[]> data) {
         try {
@@ -118,7 +102,7 @@ public class Postgres implements Serializable {
 
             ois.close();
             fis.close();
-            Update(decodeText(sql));
+            Update(Pass.decodeText(sql));
 
         } catch ( IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -126,13 +110,25 @@ public class Postgres implements Serializable {
 
     }
 
+    public static String getUrl() {
+        return Pass.decodeText(url);
+    }
+
+    public static String getUser() {
+        return Pass.decodeText(user);
+    }
+
+    public static String getPassword() {
+        return Pass.decodeText(password);
+    }
+
     public static void start () {}
 
   /*  public static void main(String[] args) {
-        char [] s = encodeText("create table users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
-                "create table services (id serial, name varchar(400), choice varchar(4000), primary key (id) ); \n" +
+        char [] s = encodeText("create table if not exists users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
+                "create table if not exists services (id serial, name varchar(400), choice varchar(4000), primary key (id) ); \n" +
                 "insert into services(name, choice) values ('alkohol', 'multi'),('animator', 'one'),('katering', 'multi'),('lokal', 'one'),('nocleg', 'one'),('media', 'multi'),('dodatki', 'multi');\n" +
-                "create table subservices ( id serial, name varchar(400), price float, tax int, pricing varchar(2), service_id int, primary key (id), foreign key(service_id) references services(id) );\n" +
+                "create table if not exists subservices ( id serial, name varchar(400), price float, tax int, pricing varchar(2), service_id int, primary key (id), foreign key(service_id) references services(id) );\n" +
                 "insert into subservices(name, price, tax, pricing, service_id) values\n" +
                 "('impreza bez alkoholu', 0, 0, 'ps', 1),\n" +
                 "('welcome drink', 10, 23, 'pp', 1),\n" +
@@ -168,7 +164,7 @@ public class Postgres implements Serializable {
                 "('brak', 0, 0, 'ps', 6),\n" +
                 "('fotograf', 300, 23, 'ps', 6),\n" +
                 "('pamiątkowy film', 500, 23, 'ps', 6);\n" +
-                "create table package_deals (id serial, offer_type varchar(4000), user_id int, subservice_id int, primary key (id), foreign key(subservice_id) references subservices(id), foreign key(user_id) references users(id));  ");
+                "create table if not exists package_deals (id serial, offer_type varchar(4000), user_id int, subservice_id int, primary key (id), foreign key(subservice_id) references subservices(id), foreign key(user_id) references users(id));  ");
         try {
             FileOutputStream fos = new FileOutputStream("src\\main\\resources\\static\\sql.data");
             ObjectOutputStream oos = new ObjectOutputStream(fos);

@@ -1,8 +1,6 @@
 package com.generatorimprez.GEN.Controller;
 
-import com.generatorimprez.GEN.Model.PackageDeal;
-import com.generatorimprez.GEN.Model.Service;
-import com.generatorimprez.GEN.Model.User;
+import com.generatorimprez.GEN.Model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,23 +23,36 @@ public class Navigation {
 
     @GetMapping("/o-nas")
     public String aboutUs(Model model) {
+        model.addAttribute("newUser", new User());
         model.addAttribute("userList", User.getAllUsers());
         return "onas";
     }
 
     @GetMapping("/zaloguj")
     public String signIn(Model model) {
+        model.addAttribute("newUser", new User());
         return "zaloguj";
     }
 
     @GetMapping("/zorganizuj-impreze")
-    public String getOferta(Model model, PackageDeal packageDeal) {
+    public String getOferta(Model model, PackageDeal packageDeal, SubServiceList subServiceList) {
         Service.getServices();
-        model.addAttribute("subServiceNames", packageDeal.getServiceNames());
+
+        model.addAttribute("subServiceNames", new SubServiceList());
         model.addAttribute("multi", Service.multi);
         model.addAttribute("one", Service.one);
 
         return "oferta";
+    }
+
+    @PostMapping("/zaloguj")
+    public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
+        model.addAttribute("newUser", new User());
+        System.out.println(user.getPassword());
+        if (user.chckuser(user))
+        return "onas";
+        else model.addAttribute("incorrectData", true);
+        return "zaloguj";
     }
 
     @PostMapping(value = "/zarejestruj")
@@ -63,6 +74,7 @@ public class Navigation {
             model.addAttribute("userExists", true);
         else model.addAttribute("userExists", false);
         if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && !user.getReminder().isEmpty() && !user.getAnswer().isEmpty() && !User.chckUsername(user.getUsername())) {
+            System.out.println(user.getPassword());
             User.addUserToDB(user);
             return "redirect:/o-nas";
         }
@@ -70,11 +82,12 @@ public class Navigation {
     }
 
     @PostMapping("/zorganizuj-impreze")
-    public String newPackageDeal(@ModelAttribute PackageDeal packageDeal, User user, Model model) {
-        System.out.println(packageDeal.getServiceNames());
-
+    public String newPackageDeal(@ModelAttribute SubServiceList subServiceList, PackageDeal packageDeal, User user, Model model) {
+        for (String str : subServiceList.getSubServiceNames()) packageDeal.addSubService(SubService.getSubServiceId(str));
         return "redirect:/";
     }
+
+
 
 
 }
