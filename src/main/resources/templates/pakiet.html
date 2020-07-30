@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,10 +35,9 @@
         </ul>
     </div>
 </nav>
-<div style="clear:both"></div>
 
 <div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
-    <form class="signin" th:action="@{/zorganizuj-impreze}" th:object="${subServiceList}" method="post">
+    <form class="signin" th:action="@{/impreza-prawie-gotowa}" th:object="${subServiceList}" method="post">
         <div class="form-group">
             <span th:each="service : ${one}">
             <label th:text="${service.getName()}" for="select1" ></label>

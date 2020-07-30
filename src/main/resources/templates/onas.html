@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +31,8 @@
 				<li class="nav-item"><a class="nav-link" href = "/o-nas">O nas</a></li>
 				<li class="nav-item"><a class="nav-link" href = "/kontakt">Kontakt</a></li>
 				<li class="nav-item"><a class="nav-link" href = "/zarejestruj">Zarejestruj</a></li>
-				<li class="nav-item"><a class="nav-link" href = "/zaloguj">Zaloguj</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="/profil"><span sec:authentication="name"></span></a></li>
 			</ul>
 	</div>
 	</nav>
@@ -40,6 +42,9 @@
     <tr th:each="user : ${userList}">
         <td th:text="${user.getUsername()}"></td><br/>
     </tr>
+    <div sec:authorize="isAuthenticated()">
+        Authenticated as <span sec:authentication="name"></span></div>
+    <div style="clear:both"></div>
 </div>
 
 

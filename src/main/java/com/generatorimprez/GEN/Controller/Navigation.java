@@ -1,6 +1,6 @@
 package com.generatorimprez.GEN.Controller;
 
-import com.generatorimprez.GEN.Model.*;
+import com.generatorimprez.GEN.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,16 +34,7 @@ public class Navigation {
         return "zaloguj";
     }
 
-    @GetMapping("/zorganizuj-impreze")
-    public String getOferta(Model model, PackageDeal packageDeal, SubServiceList subServiceList) {
-        Service.getServices();
 
-        model.addAttribute("subServiceNames", new SubServiceList());
-        model.addAttribute("multi", Service.multi);
-        model.addAttribute("one", Service.one);
-
-        return "oferta";
-    }
 
  /*   @PostMapping("/zaloguj")
     public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
@@ -79,14 +70,6 @@ public class Navigation {
         }
         return "zarejestruj";
     }
-
-    @PostMapping("/zorganizuj-impreze")
-    public String newPackageDeal(@ModelAttribute SubServiceList subServiceList, PackageDeal packageDeal, User user, Model model) {
-        for (String str : subServiceList.getSubServiceNames()) packageDeal.addSubService(SubService.getSubServiceId(str));
-        return "redirect:/";
-    }
-
-
 
 
 }

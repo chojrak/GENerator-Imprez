@@ -1,6 +1,5 @@
 package com.generatorimprez.GEN.Model;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,6 +79,10 @@ public class PackageDeal {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setType(boolean type) {
+        this.type = (type)? "public" : "private";
     }
 
     public ArrayList<Integer> getSubServices() {

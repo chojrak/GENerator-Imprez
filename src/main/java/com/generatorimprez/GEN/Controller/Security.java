@@ -10,9 +10,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 import javax.sql.DataSource;
 
@@ -32,7 +32,7 @@ public class Security extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, true from users where username=?")
-                .authoritiesByUsernameQuery("select username, admin role_id from users where username=?")
+                .authoritiesByUsernameQuery("select username, CAST (admin AS character) authority from users where username=?")
                 .passwordEncoder(bcEncoder);
     }
 
@@ -65,6 +65,7 @@ public class Security extends WebSecurityConfigurerAdapter {
         return dataSource;
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCEncoder();
@@ -83,10 +84,6 @@ class BCEncoder extends BCryptPasswordEncoder {
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return (encode(rawPassword).equals(encodedPassword));
     }
-}
-
-class Test extends AbstractSecurityWebApplicationInitializer {
-
 }
 
 
