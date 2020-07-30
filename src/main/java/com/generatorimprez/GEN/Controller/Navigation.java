@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class Navigation {
 
     @GetMapping("/")
-    public String getHome(Model model) {
+    public String getHome(Model model, User user) {
         return "index";
     }
 
@@ -45,15 +45,14 @@ public class Navigation {
         return "oferta";
     }
 
-    @PostMapping("/zaloguj")
+ /*   @PostMapping("/zaloguj")
     public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
         model.addAttribute("newUser", new User());
-        System.out.println(user.getPassword());
         if (user.chckuser(user))
-        return "onas";
+        return "/index";
         else model.addAttribute("incorrectData", true);
         return "zaloguj";
-    }
+    }*/
 
     @PostMapping(value = "/zarejestruj")
     public String newUser(@ModelAttribute(name = "newUser") User user, Model model) {
@@ -74,9 +73,9 @@ public class Navigation {
             model.addAttribute("userExists", true);
         else model.addAttribute("userExists", false);
         if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && !user.getReminder().isEmpty() && !user.getAnswer().isEmpty() && !User.chckUsername(user.getUsername())) {
-            System.out.println(user.getPassword());
             User.addUserToDB(user);
-            return "redirect:/o-nas";
+           // return "redirect:/o-nas";
+            return "zaloguj";
         }
         return "zarejestruj";
     }
