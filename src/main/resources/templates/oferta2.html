@@ -39,40 +39,15 @@
 <div style="clear:both"></div>
 
 <div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
-    <form class="signin" th:action="@{/zorganizuj-impreze}" th:object="${subServiceList}" method="post">
-        <div class="form-group">
-            <span th:each="service : ${one}">
-            <label th:text="${service.getName()}" for="select1" ></label>
-            <select th:name="${service.getName()}"
-                    th:path="${service.getName()}"
-                    th:field="${subServiceList.subServiceName}"
-                    class="form-control"
-                    id="select1">
-                <option th:each="subService: ${service.getSubServices()}"
-                        th:text="${subService.getName()}"
-                        th:value="${subService.getName()}"
-                ></option>
-            </select>
-            </span>
-        </div>
+    <form class="signin" th:action="@{/impreza-prawie-gotowa}" th:object="${offer}" method="post">
 
-        <div class="form-group">
-            <span th:each="service : ${multi}">
-                <label th:text="${service.getName()}" for="select2"></label>
-                <select multiple
-                        class="form-control"
-                        id="select2"
-                        th:name="${service.getName()}"
-                        th:path="${service.getName()}"
-                        th:field="${subServiceList.subServiceName}">
-                  <option th:each="subService: ${service.getSubServices()}"
-                          th:text="${subService.getName()}"
-                          th:value="${subService.getName()}">
-                  </option>
-                </select>
-            </span>
-        </div>
-        <input class="ol-sm-6 offset-sm-4" type="submit" value="Dalej">
+            <span>liczba osób:</span>
+            <input class="ol-sm-6" type="number" name="liczbaOsob"  th:field="${offer.liczbaOsob}"><br>
+
+            <span>kod promocyjny:</span>
+            <input class="ol-sm-6" type="text" name="promoCode"  th:field="${offer.promoCode}"><br>
+
+        <input class="ol-sm-6 offset-sm-4" type="submit" value="Zorganizuj imprezę">
     </form>
 </div>
 

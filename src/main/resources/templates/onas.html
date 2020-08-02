@@ -42,8 +42,7 @@
     <tr th:each="user : ${userList}">
         <td th:text="${user.getUsername()}"></td><br/>
     </tr>
-    <div sec:authorize="isAuthenticated()">
-        Authenticated as <span sec:authentication="name"></span></div>
+  </div>
     <div style="clear:both"></div>
 </div>
 

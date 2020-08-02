@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Navigation {
 
-    @GetMapping("/")
-    public String getHome(Model model, User user) {
-        return "index";
-    }
+
+
 
     @GetMapping("/zarejestruj")
     public String signUp(Model model) {
@@ -33,7 +31,6 @@ public class Navigation {
         model.addAttribute("newUser", new User());
         return "zaloguj";
     }
-
 
 
  /*   @PostMapping("/zaloguj")

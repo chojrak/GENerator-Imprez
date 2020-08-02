@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      xmlns:custom="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,19 +33,26 @@
             <li class="nav-item"><a class="nav-link" href="/kontakt">Kontakt</a></li>
             <li class="nav-item"><a class="nav-link" href="/zarejestruj">Zarejestruj</a></li>
             <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="/profil"><span sec:authentication="name"></span></a></li>
+            <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="/profil"><span
+                    sec:authentication="name"></span></a></li>
         </ul>
     </div>
 </nav>
 
 <div style="clear:both"></div>
 
+
 <section class="konfigurator">
     <div class="container">
+
         <div class="row">
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="event">
-                    <a href="#"><img src="img/wesele.jpg"></a>
+
+                    <form th:action="@{/konfiguracja}" method="post" class="form">
+                        <input type="submit" class="button1" value="">
+                        <input type="hidden" name="packageDealId" th:attr="field=${offer.packageDealId}" value="1"/>
+                     </form>
                     <div class="event-text">wesele</div>
                 </div>
             </div>

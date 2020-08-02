@@ -120,10 +120,10 @@ public class User {
         return allUsers;
     }
 
-    public boolean isAdmin () {
+    public static boolean isAdmin (String username) {
         int admin = 0;
         try {
-            ResultSet rs = Postgres.Execute("select admin from users where username like '"+this.username+"'");
+            ResultSet rs = Postgres.Execute("select admin from users where username like '"+username+"'");
             while (rs.next()) {
                 admin = rs.getInt("admin");
             }
@@ -141,6 +141,19 @@ public class User {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public static int chckIdUser (String username) {
+        int id = 0;
+        try {
+            ResultSet rs = Postgres.Execute("select id from users where username like '"+username+"'");
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return id;
     }
 
 

@@ -9,6 +9,9 @@ public class PackageDeal {
     int idUser;
     String type;
     ArrayList<Integer> subServices;
+    int liczbaOsob;
+    float price;
+    float tax;
 
     static {
         try {
@@ -41,10 +44,10 @@ public class PackageDeal {
 
     public void savePackageDeal() {
         try {
-            ResultSet rs = Postgres.Execute("select id from package_deal where user_id = " + this.idUser);
+            ResultSet rs = Postgres.Execute("select id from package_deals where user_id = " + this.idUser);
             if (!rs.next()) {
                 for (int i : this.subServices)
-                    Postgres.Update("insert into package_deals (id, user_id, subservice_id) values(" + nextId + "," + this.idUser + "," + i + ")");
+                    Postgres.Update("insert into package_deals (id, offer_type, user_id, subservice_id) values(" + nextId + ", '" + this.type + "' ," + this.idUser + "," + i + ")");
                 nextId++;
             }
         } catch (SQLException e) {
@@ -68,28 +71,45 @@ public class PackageDeal {
         this.idUser = idUser;
     }
 
-    public void setType(User user) {
-        this.type = (user.isAdmin())? "public" : "private";
-
-    }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String username) {
+        this.type = (User.isAdmin(username)) ? "public" : "private";
     }
 
     public void setType(boolean type) {
-        this.type = (type)? "public" : "private";
+        this.type = (type) ? "public" : "private";
     }
 
     public ArrayList<Integer> getSubServices() {
-        return subServices; }
+        return subServices;
+    }
+
+    public int getLiczbaOsob() {
+        return liczbaOsob;
+    }
+
+    public void setLiczbaOsob(int liczbaOsob) {
+        this.liczbaOsob = liczbaOsob;
+    }
 
     public void setSubServices(ArrayList<Integer> subServices) {
         this.subServices = subServices;
+    }
+
+    public static int getNextId() {
+        return nextId;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public float getPrice() {
+        return price;
     }
 
 

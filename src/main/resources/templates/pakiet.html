@@ -37,41 +37,25 @@
 </nav>
 
 <div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
-    <form class="signin" th:action="@{/impreza-prawie-gotowa}" th:object="${subServiceList}" method="post">
-        <div class="form-group">
-            <span th:each="service : ${one}">
-            <label th:text="${service.getName()}" for="select1" ></label>
-            <select th:name="${service.getName()}"
-                    th:path="${service.getName()}"
-                    th:field="${subServiceList.subServiceName}"
-                    class="form-control"
-                    id="select1">
-                <option th:each="subService: ${service.getSubServices()}"
-                        th:text="${subService.getName()}"
-                        th:value="${subService.getName()}"
-                ></option>
-            </select>
+    <div class="signin"  th:object="${descriptions}" method="post">
+            <span th:each="i : ${descriptions}">
+            <label th:text="${i.key}">
+                </label> <br>
+                <p th:text="${i.value}"></p>
             </span>
         </div>
+    <div  th:object="${prices}">
+            <span th:each="j : ${prices}">
+            <span th:text="${j.key}"></span>:
+                 <span th:each="k : ${j.value}">
+                     <span th:text="${k.value}"></span> <span th:text="${k.key}"></span>
 
-        <div class="form-group">
-            <span th:each="service : ${multi}">
-                <label th:text="${service.getName()}" for="select2"></label>
-                <select multiple
-                        class="form-control"
-                        id="select2"
-                        th:name="${service.getName()}"
-                        th:path="${service.getName()}"
-                        th:field="${subServiceList.subServiceName}">
-                  <option th:each="subService: ${service.getSubServices()}"
-                          th:text="${subService.getName()}"
-                          th:value="${subService.getName()}">
-                  </option>
-                </select>
-            </span>
-        </div>
-        <input class="ol-sm-6 offset-sm-4" type="submit" value="Zorganizuj imprezę">
-    </form>
+                </span> <br>
+                </span>
+    </div>
+
+    <div class="ol-sm-6 offset-sm-4" type="button" value="Zorganizuj imprezę"></div>
+    </div>
 </div>
 
 
