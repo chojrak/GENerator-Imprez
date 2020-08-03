@@ -236,16 +236,152 @@ input[type="radio"] {
 
 .button1
 {
-	opacity:75%;
+	opacity:85%;
 	border:none;
     background:url('../img/wesele.jpg');
+    background-size: 100% 100%;
 	display:block;
 	width:250px;
 	height:250px;
 	
 }
 
+.button2
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/urodziny.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
 
+.button3
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/kawalerski.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button4
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/wyjazd_integr.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button5
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/konferencja.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button6
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/koncert.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button7
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/zielona.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button8
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/survival.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button9
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/komunia.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button10
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/sport.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.button11
+{
+	opacity:85%;
+	border:none;
+    background:url('../img/wystawa.jpg');
+    background-size: 100% 100%;
+	display:block;
+	width:250px;
+	height:250px;
+	
+}
+
+.buttonA
+{
+	width:300px;
+	background-color: #17a2b8;
+	color:#004045;
+	padding: 15px 10px;
+	margin-top: 20px;
+	border: none;
+	border-radius: 5px;
+	background:url('../templates/oferta.html');
+	font-size: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	letter-spacing: 2px;
+	outline: none;
+}
 
 .footer
 {
@@ -343,3 +479,4 @@ input[type="radio"] {
 	background-color: #e60023;
 	cursor:pointer;
 }
+
