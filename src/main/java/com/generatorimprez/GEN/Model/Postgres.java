@@ -124,7 +124,7 @@ public class Postgres implements Serializable {
 
     public static void start () {}
 
-    /*  public static void main(String[] args) {
+ /*   public static void main(String[] args) {
 
     String pass = User.encodePass("Admin1234");
     char [] s = Pass.encodeText("create table if not exists users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
