@@ -56,8 +56,6 @@ public class ResetToken {
 
     public static boolean isTokenMatchingUser (String token, int user_id)
     {
-        System.out.println(token);
-        System.out.println(user_id);
         try {
             ResultSet rs = Postgres.Execute("select * from reminder_tokens where token like '"+token+"' and user_id ="+user_id);
             return (rs.next());
