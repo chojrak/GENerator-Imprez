@@ -17,6 +17,7 @@ public class User {
     String password2;
     String reminder;
     String answer;
+    String answer2;
     boolean admin;
 
     public User() {
@@ -107,6 +108,14 @@ public class User {
         return password2;
     }
 
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
     public static ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList<User>();
         try {
@@ -120,22 +129,22 @@ public class User {
         return allUsers;
     }
 
-    public static boolean isAdmin (String username) {
+    public static boolean isAdmin(String username) {
         int admin = 0;
         try {
-            ResultSet rs = Postgres.Execute("select admin from users where username like '"+username+"'");
+            ResultSet rs = Postgres.Execute("select admin from users where username like '" + username + "'");
             while (rs.next()) {
                 admin = rs.getInt("admin");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return (admin==1);
+        return (admin == 1);
     }
 
-    public boolean chckuser (User user) {
+    public boolean chckuser(User user) {
         try {
-            ResultSet rs = Postgres.Execute("select * from users where username like '"+user.username+"' and password like '"+user.password+"'");
+            ResultSet rs = Postgres.Execute("select * from users where username like '" + user.username + "' and password like '" + user.password + "'");
             return (rs.next());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -143,10 +152,10 @@ public class User {
         return false;
     }
 
-    public static int chckIdUser (String username) {
+    public static int chckIdUser(String username) {
         int id = 0;
         try {
-            ResultSet rs = Postgres.Execute("select id from users where username like '"+username+"'");
+            ResultSet rs = Postgres.Execute("select id from users where username like '" + username + "'");
             while (rs.next()) {
                 id = rs.getInt("id");
             }
@@ -161,4 +170,26 @@ public class User {
         ArrayList<User> allUsers = getAllUsers();
         for (User o : allUsers) System.out.println(o.getUsername());
     }
+
+    public void getReminderFromDB() {
+        try {
+            ResultSet rs = Postgres.Execute("select reminder, answer from users where username like '" + username + "'");
+            while (rs.next()) {
+                this.reminder = rs.getString("reminder");
+                this.answer = rs.getString("answer");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public boolean chckAnswer() {
+     return (answer.toLowerCase().trim().equals(answer2.toLowerCase().trim()));
+    }
+
+    public void updatePassword ()
+    {
+        Postgres.Update("update users set password = '"+this.password+"' where username = '"+this.username+"'");
+    }
+
 }

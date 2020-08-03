@@ -33,6 +33,8 @@ public class Navigation {
     }
 
 
+
+
  /*   @PostMapping("/zaloguj")
     public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
         model.addAttribute("newUser", new User());
@@ -62,11 +64,12 @@ public class Navigation {
         else model.addAttribute("userExists", false);
         if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && !user.getReminder().isEmpty() && !user.getAnswer().isEmpty() && !User.chckUsername(user.getUsername())) {
             User.addUserToDB(user);
-           // return "redirect:/o-nas";
             return "zaloguj";
         }
         return "zarejestruj";
     }
+
+
 
 
 }
