@@ -38,42 +38,121 @@
 			</ul>
 	</div>
 	</nav>
-<div class="offset-3 col-6">
-    <div class="container">
-      <div class="hero-unit">
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1>Nasz zespół </h1>
-        <p>
-        GENerator Imprez tworzy paczka dobrych przyjaciół
-		posiadająca grono zaufanych i sprawdzonych podwykonawców.
-		Jesteśmy dobrzy w tym co robimy, bo łączymy pracę z pasją.
-        </p>
-        <br>
-        <h1>Nasza misja </h1>
-        <p>
-        GENerator Imprez chce świadczeć niebanalne,
-        innowacyjne i kreatywne usługi
-		przy zachowaniu najwyższej jakości,
-		spełniającej oczekiwania najbardziej wymagających klientów.
-		Wszystkie usługi oferowane przez GENerator Imprez
-		charakteryzują się bezpieczeństwem
-		oraz stosowaniem najnowocześniejszych sprzętów.
-        </p>
-        <br>
-        <h1>Nasze ambicje</h1>
-        <p>
-        GENerator Imprez, dąży, aby w najbliższych trzech latach 
-		stać się liderem w województwie mazowieckim w organizacji 
-		koncertów, wystaw oraz konferencji.<br>
-		Swój sukces GENerator Imprez osiągnie poprzez 
-		najwyższa jakość świadczonych usług
-		oraz najbardziej wykwalifikowanych Event Managerów w kraju.
-        </p> 
-      </div>
-    </div>
+<div class="col-sm-6 offset-sm-3" id="users">
+		<span class="title">Użytkownicy</span><br>
+		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
+		<span class="functionName">Usuń konto</span>
+		<input class="ol-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+		 <input class="ol-sm-4" type="submit" value="Usuń">
+		</form>
+		
+		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
+		<span class="functionName">Nadaj funkcję administratora</span>
+		<input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+		 <input class="ol-sm-6" type="submit" value="Mianuj adminem">
+		</form>
+		
+		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
+		<span class="functionName">Nadaj funkcję użytkownika</span>
+		<input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+		 <input class="ol-sm-6" type="submit" value="Zdegraduj admina">
+		</form>
+				
+</div>
+
+<div class="col-sm-6 offset-sm-3" id="services">
+<span class="title">Kategorie świadczonych usług</span><br>
+	<form class="signin" th:action="@{/panel-service}" th:object="${newService}" method="post">
+		<span class="functionName">Usuń kategorię</span>
+		<input class="ol-sm-6" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
+		 <input class="ol-sm-6" type="submit" value="Usuń">
+		</form>
+		
+		<form class="signin" th:action="@{/panel-service}" th:object="${newService}" method="post">
+		<span class="functionName">Dodaj kategorię</span>
+		<input class="ol-sm-4" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
+	<!--	<input class="ol-sm-4" list="servicetype" placeholder="rodzaj kategorii" th:field="${newService.choice}">-->
+
+			<select class="ol-sm-6 adminselect" list="servicetype" placeholder="typ" th:field="${newService.choice}">
+				<datalist class="ol-sm-6 form-control" id="servicetype">
+					<option	th:text="'kategoria wielokrotnego wyboru (np katering)'"
+							   th:value="'multi'" ></option>
+					<option	th:text="'kategoria jednokrotnego wyboru (np nocleg)'"
+							   th:value="'one'" ></option>
+				</datalist>
+			</select>
+
+
+		 <input class="ol-sm-4" type="submit" value="Dodaj">
+		</form>
+		
+</div>
+
+<div class="col-sm-6 offset-sm-3" id="subservices">
+<span class="title">Usługi</span><br>
+	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
+		<span class="functionName">Usuń usługę</span>
+		<input class="ol-sm-6" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.name}">
+		 <input class="ol-sm-6" type="submit" value="Usuń">
+		</form>
+		
+		<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
+		<span class="functionName">Dodaj usługę</span>
+		<input class="ol-sm-2" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.name}">
+			<select class="ol-sm-2 adminselect" list="service" placeholder="rodzaj kategorii" th:field="${newSubService.serviceName}">
+			<datalist class="ol-sm-2 form-control" id="service">
+				<option th:each="s: ${serviceNames}"
+						th:text="${s}"
+						th:value="${s}" />
+			</datalist>
+			</select>
+			<input class="ol-sm-2" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
+			<input class="ol-sm-2" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
+
+			<select class="ol-sm-2 adminselect" list="pricing" placeholder="typ" th:field="${newSubService.type}">
+				<datalist class="ol-sm-2 form-control" id="typ">
+					<option	th:text="'cena za osobę'"
+							   th:value="'pp'" ></option>
+					<option	th:text="'cena za usługę'"
+							   th:value="'ps'" ></option>
+				</datalist>
+			</select>
+
+		 <input class="ol-sm-2" type="submit" value="Dodaj">
+		</form>
+
+	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
+		<span class="functionName">Zmień cenę usługi</span>
+		<input class="ol-sm-4" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.serviceName}">
+		<input class="ol-sm-4" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
+		<input class="ol-sm-4" type="submit" value="Modyfikuj">
+	</form>
+
+	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
+		<span class="functionName">Zmień wysokość podatku</span>
+		<input class="ol-sm-4" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.serviceName}">
+		<input class="ol-sm-4" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
+		<input class="ol-sm-4" type="submit" value="Modyfikuj">
+	</form>
+
+</div>
+
+
+<div class="col-sm-6 offset-sm-3" id="promo_codes">
+	<form class="signin" th:action="@{/panel-promo-code}" th:object="${newPromoCode}" method="post">
+		<span class="functionName">Wygeneruj kody promocyjne</span>
+		<input class="ol-sm-3" type="text" name="code" placeholder="kod promocyjny" th:field="${newPromoCode.code}">
+		<input class="ol-sm-3" type="number" placeholder="cena" name="value" th:attr="field=${newPromoCode.value}">
+		<input class="ol-sm-3" type="number" placeholder="ilość" name="amount" th:attr="field=${newPromoCode.amount}">
+		 <input class="ol-sm-3" type="submit" value="Dodaj">
+		</form>
+		
+		<form class="signin" th:action="@{/panel-promo-code}" th:object="${newPromoCode}" method="post">
+		<span class="functionName">Usuń kody promocyjne</span>
+		<input class="ol-sm-6" type="text" name="username" placeholder="nazwa kategorii" th:field="${newPromoCode.code}">
+		 <input class="ol-sm-6" type="submit" value="Usuń">
+		</form>
+		
 </div>
 <div class="footer">
     <a href="/">

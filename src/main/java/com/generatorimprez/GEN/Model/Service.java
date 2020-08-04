@@ -16,6 +16,8 @@ public class Service {
         one = new ArrayList<Service>();
     }
 
+    public Service() {
+    }
 
     public Service(String name, String choice, int id) {
         this.name = name;
@@ -29,6 +31,14 @@ public class Service {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
     }
 
     public static ArrayList<String> getServiceNames() {

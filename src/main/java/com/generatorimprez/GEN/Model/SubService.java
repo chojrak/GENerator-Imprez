@@ -2,12 +2,14 @@ package com.generatorimprez.GEN.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class SubService {
     String name;
     float price;
     int tax;
     String type;
+    String serviceName;
 
 
     public SubService() {
@@ -20,6 +22,14 @@ public class SubService {
         this.type = type;
     }
 
+    public SubService(String name, float price, int tax, String type, String serviceName) {
+        this.name = name;
+        this.price = price;
+        this.tax = tax;
+        this.type = type;
+        this.serviceName = serviceName;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,7 +38,7 @@ public class SubService {
         this.name = name;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -36,7 +46,7 @@ public class SubService {
         this.price = price;
     }
 
-    public float getTax() {
+    public int getTax() {
         return tax;
     }
 
@@ -44,6 +54,13 @@ public class SubService {
         this.tax = tax;
     }
 
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     public String getType() {
         return type;
@@ -63,6 +80,18 @@ public class SubService {
             throwables.printStackTrace();
         }
         return id;
+    }
+
+    public static ArrayList<String> getSubServiceNames() {
+        ArrayList<String> serviceNames = new ArrayList<String>();
+        try {
+            ResultSet rs = Postgres.Execute("select distinct name from subservices");
+            while (rs.next())
+                serviceNames.add(rs.getString("name"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return serviceNames;
     }
 
     @Override

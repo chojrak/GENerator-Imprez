@@ -37,11 +37,6 @@ public class Navigation {
         return "kontakt";
     }
 
-    @GetMapping("/panel")
-    public String panel(Model model) {
-        return "panel";
-    }
-
 
 
 
