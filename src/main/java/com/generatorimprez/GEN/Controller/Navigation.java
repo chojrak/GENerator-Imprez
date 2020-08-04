@@ -32,6 +32,16 @@ public class Navigation {
         return "zaloguj";
     }
 
+    @GetMapping("/kontakt")
+    public String contact(Model model) {
+        return "kontakt";
+    }
+
+    @GetMapping("/panel")
+    public String panel(Model model) {
+        return "panel";
+    }
+
 
 
 

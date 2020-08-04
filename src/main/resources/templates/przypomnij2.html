@@ -26,6 +26,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="menu">
 			<ul class="navbar-nav">
+				<li sec:authorize="hasAuthority('1')" class="nav-item" style="width:240px"><a class="nav-link" href="/panel">Panel Sterowania</a></li>
+				<li class="nav-item" style="width:180px"><a class="nav-link" href="/">Strona Domowa</a></li>
 				<li class="nav-item"><a class="nav-link" href = "/zorganizuj-impreze">Oferta</a></li>
 				<li class="nav-item"><a class="nav-link" href = "/o-nas">O nas</a></li>
 				<li class="nav-item"><a class="nav-link" href = "/kontakt">Kontakt</a></li>
