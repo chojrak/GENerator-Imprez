@@ -32,6 +32,7 @@ public class Navigation {
         return "zaloguj";
     }
 
+
     @GetMapping("/kontakt")
     public String contact(Model model) {
         return "kontakt";
