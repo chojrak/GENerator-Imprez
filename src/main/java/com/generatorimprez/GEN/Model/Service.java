@@ -1,28 +1,26 @@
 package com.generatorimprez.GEN.Model;
 
-import org.springframework.http.converter.json.GsonBuilderUtils;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Service {
+    int id;
     String name;
     String choice;
-    public static ArrayList <Service> multi;
-    public static ArrayList <Service> one;
+    public static ArrayList<Service> multi;
+    public static ArrayList<Service> one;
 
     static {
-        multi = new ArrayList <Service>();
-        one = new ArrayList <Service>();
+        multi = new ArrayList<Service>();
+        one = new ArrayList<Service>();
     }
 
 
-
-    public Service(String name, String choice) {
+    public Service(String name, String choice, int id) {
         this.name = name;
         this.choice = choice;
+        this.id = id;
     }
 
     public String getChoice() {
@@ -57,14 +55,16 @@ public class Service {
     }
 
     public static void getServices() {
-        multi = new ArrayList <Service>();
-        one = new ArrayList <Service>();
-        ArrayList<Service> services = new ArrayList<Service> ();
+        multi = new ArrayList<Service>();
+        one = new ArrayList<Service>();
+        ArrayList<Service> services = new ArrayList<Service>();
         try {
             ResultSet rs = Postgres.Execute("select * from services");
-            while (rs.next()) services.add(new Service(rs.getString("name"), rs.getString("choice")));
-            for (Service s : services) {if (s.getChoice().equals("multi")) multi.add(s);
-            else if(s.getChoice().equals("one")) one.add(s);}
+            while (rs.next()) services.add(new Service(rs.getString("name"), rs.getString("choice"), rs.getInt("id")));
+            for (Service s : services) {
+                if (s.getChoice().equals("multi")) multi.add(s);
+                else if (s.getChoice().equals("one")) one.add(s);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class Service {
         ArrayList<SubService> subServices = new ArrayList<SubService>();
         try {
 
-            ResultSet rs = Postgres.Execute("select * from subservices where service_id =" + getServiceId(this.name));
+            ResultSet rs = Postgres.Execute("select * from subservices where service_id =" + this.id);
             while (rs.next())
                 subServices.add(new SubService(rs.getString("name"), rs.getFloat("price"), rs.getInt("tax"), rs.getString("pricing")));
         } catch (SQLException throwables) {

@@ -17,7 +17,7 @@ public class Mail {
         server = new Server();
     }
 
-    public static void sendMail(String subject, String message, String address) {
+    public static void sendMail(String subject, String message, User user) {
             try {
                 Authenticator auth = new SmtpAuthenticator(server);
 
@@ -36,7 +36,7 @@ public class Mail {
                 msg.setSubject(subject, "UTF-8");
                 msg.setText(message, "UTF-8");
 
-                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(address, false));
+                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.username, false));
                 Transport.send(msg);
             } catch (Exception e) {
                 e.printStackTrace();

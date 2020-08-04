@@ -31,11 +31,20 @@ public class Navigation {
         model.addAttribute("newUser", new User());
         return "zaloguj";
     }
+
+
     @GetMapping("/kontakt")
     public String contact(Model model) {
-        model.addAttribute("newUser", new User());
         return "kontakt";
     }
+
+    @GetMapping("/panel")
+    public String panel(Model model) {
+        return "panel";
+    }
+
+
+
 
  /*   @PostMapping("/zaloguj")
     public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
@@ -66,11 +75,12 @@ public class Navigation {
         else model.addAttribute("userExists", false);
         if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && !user.getReminder().isEmpty() && !user.getAnswer().isEmpty() && !User.chckUsername(user.getUsername())) {
             User.addUserToDB(user);
-           // return "redirect:/o-nas";
             return "zaloguj";
         }
         return "zarejestruj";
     }
+
+
 
 
 }

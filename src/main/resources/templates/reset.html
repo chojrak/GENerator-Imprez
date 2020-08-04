@@ -39,15 +39,13 @@
 	<div style="clear:both"></div>
 	
 	<div class="col-sm-6 offset-sm-3" id="sign">
-		<form class="signin" th:action="@{/zaloguj}" th:object="${newUser}" method="post">
-			<input class="ol-sm-6 offset-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
-			<input class="ol-sm-6 offset-sm-4" type="password" name="password" placeholder="hasło" th:field="${newUser.password}">
-				<div style="text-align:center">
-                <span th:if="${param.error}" class="ol-sm-6 error">Błędny login lub hasło<br></span>
-				</div>
-                <input class="ol-sm-6 offset-sm-4" type="submit" value="Zaloguj się">
-			<a href="/przypomnij">
-                <input class="ol-sm-6 offset-sm-4 button" type="button" value="Przypomnij mi hasło"></a>
+		<form class="signin" th:action="@{/reset}" th:object="${newUser}" method="post">
+			<input class="ol-sm-6 offset-sm-4" type="password" placeholder="nowe hasło" th:field="${newUser.password}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Musi posiadać przynajmniej jedną cyfrę, wielką literę, małą literę i minimum 8 znaków" required>
+			<input class="ol-sm-6 offset-sm-4" type="password" placeholder="powtórz nowe hasło" th:field="${newUser.password2}">
+			<div style="text-align:center">
+				<span th:if="${incorrectPassword}" class="ol-sm-6 error">Wpisane hasła nie są identyczne<br></span>
+			</div>
+			<input class="ol-sm-6 offset-sm-4" type="submit" value="Zmień hasło">
             </form>
         </div>
 

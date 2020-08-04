@@ -28,12 +28,14 @@
     </button>
     <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav">
+            <li sec:authorize="hasAuthority('1')" class="nav-item" style="width:240px"><a class="nav-link" href="/panel">Panel Sterowania</a></li>
+            <li class="nav-item" style="width:180px"><a class="nav-link" href="/">Strona Domowa</a></li>
             <li class="nav-item"><a class="nav-link" href="/zorganizuj-impreze">Oferta</a></li>
             <li class="nav-item"><a class="nav-link" href="/o-nas">O nas</a></li>
             <li class="nav-item"><a class="nav-link" href="/kontakt">Kontakt</a></li>
-            <li class="nav-item"><a class="nav-link" href="/zarejestruj">Zarejestruj</a></li>
+            <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zarejestruj">Zarejestruj</a></li>
             <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="/profil"><span
+            <li sec:authorize="isAuthenticated()" class="nav-item" style="width:240px"><a class="nav-link" href="/profil"><span
                     sec:authentication="name"></span></a></li>
         </ul>
     </div>

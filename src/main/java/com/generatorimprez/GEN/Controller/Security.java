@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -41,8 +40,8 @@ public class Security extends WebSecurityConfigurerAdapter {
 
 
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/resources/**", "/img/**", "/font/**", "/css/**", "/js/**", "/static/**", "/zaloguj/**", "/zarejestruj/**", "/zorganizuj-impreze/**").permitAll()
-                .antMatchers("/o-nas/**").authenticated()
+                .antMatchers("/panel/**").hasAuthority("1")
+                .antMatchers("/resources/**", "/img/**", "/font/**", "/css/**", "/js/**", "/static/**", "/zaloguj/**", "/zarejestruj/**", "/zorganizuj-impreze/**", "/o-nas/**").permitAll()
                 .and()
                 .formLogin().loginPage("/zaloguj");
               /*.loginProcessingUrl("/perform_login")

@@ -39,15 +39,15 @@
 	<div style="clear:both"></div>
 	
 	<div class="col-sm-6 offset-sm-3" id="sign">
-		<form class="signin" th:action="@{/zaloguj}" th:object="${newUser}" method="post">
-			<input class="ol-sm-6 offset-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
-			<input class="ol-sm-6 offset-sm-4" type="password" name="password" placeholder="hasło" th:field="${newUser.password}">
+		<form class="signin" th:action="@{/przypomnij2}" th:object="${newUser}" method="post">
+			<div style="text-align:center">
+			<label th:unless="${linkSent}" th:text="${newUser.getReminder()}"></label> <br>
+			</div>
+			<input th:unless="${linkSent}"  class="ol-sm-6 offset-sm-4" type="text" name="answer2" th:field="${newUser.answer2}">
 				<div style="text-align:center">
-                <span th:if="${param.error}" class="ol-sm-6 error">Błędny login lub hasło<br></span>
+                <span th:if="${linkSent}" class="ol-sm-6">Wysłano link do zresetowania hasła<br></span>
 				</div>
-                <input class="ol-sm-6 offset-sm-4" type="submit" value="Zaloguj się">
-			<a href="/przypomnij">
-                <input class="ol-sm-6 offset-sm-4 button" type="button" value="Przypomnij mi hasło"></a>
+                <input th:unless="${linkSent}" class="ol-sm-6 offset-sm-4 button" type="submit" value="Przypomnij mi hasło">
             </form>
         </div>
 

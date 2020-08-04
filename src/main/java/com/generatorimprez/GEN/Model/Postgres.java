@@ -124,7 +124,7 @@ public class Postgres implements Serializable {
 
     public static void start () {}
 
-    /*  public static void main(String[] args) {
+ /*   public static void main(String[] args) {
 
     String pass = User.encodePass("Admin1234");
     char [] s = Pass.encodeText("create table if not exists users (id serial, username varchar(400), reminder varchar(4000), answer varchar(4000), password varchar(400), admin int, primary key (id) );\n" +
@@ -229,7 +229,8 @@ public class Postgres implements Serializable {
 			"(11, 'public', 1, 18),\n"+
 			"(11, 'public', 1, 37),\n"+
 			"(11, 'public', 1, 33);\n"+
-            "create table if not exists promo_codes (id int, code varchar(4000), type varchar(400), value int);" );
+            "create table if not exists promo_codes (id int, code varchar(4000), type varchar(400), value int);\n"+
+               "create table if not exists reminder_tokens (id serial, token varchar(4000), user_id int, expiration_date timestamp, primary key (id), foreign key(user_id) references users(id));");
     try {
         FileOutputStream fos = new FileOutputStream("src\\main\\resources\\static\\sql.data");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -241,6 +242,7 @@ public class Postgres implements Serializable {
     }
 }
 */
+
    }
 
 
