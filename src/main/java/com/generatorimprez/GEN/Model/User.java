@@ -187,9 +187,9 @@ public class User {
      return (answer.toLowerCase().trim().equals(answer2.toLowerCase().trim()));
     }
 
-    public void updatePassword ()
+    public void updatePassword (String token)
     {
-        Postgres.Update("update users set password = '"+this.password+"' where username = '"+this.username+"'");
+        Postgres.Update("update users set password = '"+this.password+"' where id = (select user_id from reminder_tokens where token like '"+User.encodePass(token)+"')");
     }
 
 }

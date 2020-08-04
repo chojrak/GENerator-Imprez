@@ -40,7 +40,7 @@ public class ResetToken {
 
     public void saveTokenInDB() {
         int id = User.chckIdUser(user.getUsername());
-        Postgres.Update("insert into reminder_tokens (token, user_id, expiration_date) values ('" + token + "', " + id + ", '" + expirationDate + "')");
+        Postgres.Update("insert into reminder_tokens (token, user_id, expiration_date) values ('" + User.encodePass(token) + "', " + id + ", '" + expirationDate + "')");
     }
 
     public static boolean isTokenValid(String token) {

@@ -38,9 +38,9 @@
 	
 	<div class="col-sm-6 offset-sm-3" id="sign">
 		<form class="signin" th:action="@{/przypomnij}" th:object="${newUser}" method="post">
-			<input class="ol-sm-6 offset-sm-4" type="text" name="username" placeholder="login" th:field="${newUser.username}">
+			<input class="ol-sm-6 offset-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
 				<div style="text-align:center">
-                <span th:if="${incorrectData}" class="ol-sm-6 error">Błędny login<br></span>
+                <span th:if="${incorrectData}" class="ol-sm-6 error">Błędny adres e-mail<br></span>
 				</div>
                 <input class="ol-sm-6 offset-sm-4 button" type="submit" value="Przypomnij mi hasło">
             </form>

@@ -12,7 +12,7 @@ public class ResetController {
 
     @GetMapping("/user/changePassword")
     public String resetPassword(Model model, @RequestParam("token") String token) {
-        if (ResetToken.isTokenValid(token)) {
+        if (ResetToken.isTokenValid(User.encodePass(token))) {
             model.addAttribute("token", token);
             return "redirect:/reset";
         } else {
@@ -33,14 +33,8 @@ public class ResetController {
         if (!user.getPassword2().equals(user.getPassword()))
             model.addAttribute("incorrectPassword", true);
         else model.addAttribute("incorrectPassword", false);
-        if (user.getUsername().isEmpty())
-            model.addAttribute("noUserName", true);
-        else model.addAttribute("noUserName", false);
-        if (!ResetToken.isTokenMatchingUser(token, User.chckIdUser(user.getUsername())))
-            model.addAttribute("wrongUser", true);
-        else model.addAttribute("wrongUser", false);
-        if (user.getPassword2().equals(user.getPassword()) && !user.getUsername().isEmpty() && ResetToken.isTokenMatchingUser(token, User.chckIdUser(user.getUsername()))) {
-            user.updatePassword();
+        if (user.getPassword2().equals(user.getPassword())) {
+            user.updatePassword(token);
             return "zaloguj";
         }
         return "reset";
