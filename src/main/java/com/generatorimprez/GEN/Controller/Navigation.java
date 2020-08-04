@@ -31,7 +31,11 @@ public class Navigation {
         model.addAttribute("newUser", new User());
         return "zaloguj";
     }
-
+    @GetMapping("/kontakt")
+    public String contact(Model model) {
+        model.addAttribute("newUser", new User());
+        return "kontakt";
+    }
 
  /*   @PostMapping("/zaloguj")
     public String chckPass(@ModelAttribute(name = "newUser") User user, Model model) {
