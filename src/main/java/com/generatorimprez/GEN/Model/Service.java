@@ -107,9 +107,37 @@ public class Service {
         return subServices;
     }
 
-    public static void main(String[] args) {
-        for (SubService s : getSubServices("lokal")) System.out.println(s.getName());
+    public void deleteService() {
+        Postgres.Update("delete from services where name like '"+this.name+"'");
     }
 
+    public boolean chckSubServices() {
+        try {
+            ResultSet rs = Postgres.Execute("select s.* from subservices ss, services s where s.id = ss.service_id and s.name like '" + this.name+"'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public void addService(){
+        try {
+            ResultSet rs = Postgres.Execute("select s.* from services s where s.name like '" + this.name+"'");
+            if (!rs.next()) Postgres.Update("insert into services (name, choice) values ('"+this.name+"', '"+this.choice+"')");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public boolean chckServiceName(){
+        try {
+            ResultSet rs = Postgres.Execute("select s.* from services s where s.name like '" + this.name+"'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 
 }

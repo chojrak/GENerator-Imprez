@@ -192,4 +192,16 @@ public class User {
         Postgres.Update("update users set password = '"+this.password+"' where id = (select user_id from reminder_tokens where token like '"+User.encodePass(token)+"')");
     }
 
+    public void deleteUser() {
+        Postgres.Update("delete from users where username like '"+this.username+"'");
+    }
+
+    public void setAdmin() {
+        Postgres.Update("update users set admin = 1 where username like '"+this.username+"'");
+    }
+
+    public void setUser() {
+        Postgres.Update("update users set admin = 0 where username like '"+this.username+"'");
+    }
+
 }

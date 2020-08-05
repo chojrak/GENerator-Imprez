@@ -211,6 +211,16 @@ body
 	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
 }
 
+#sms
+{
+	background-color:#e6f7ff;
+	min-height: 100px;
+	margin-top:100px;
+	-webkit-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	-moz-box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+	box-shadow: 0px 0px 23px -3px rgba(0,0,0,0.46);
+}
+
 .functionName
 {
 	display:block;
@@ -219,6 +229,12 @@ body
 {
 	font-size: 15px;
 	color: red;
+}
+
+.confirmation
+{
+	font-size: 15px;
+	color: green;
 }
 
 

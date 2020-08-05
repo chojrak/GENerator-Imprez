@@ -10,6 +10,7 @@ public class SubService {
     int tax;
     String type;
     String serviceName;
+    String description;
 
 
     public SubService() {
@@ -70,6 +71,14 @@ public class SubService {
         this.type = type;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public static int getSubServiceId (String subServiceName)
     {
         int id = 0;
@@ -92,6 +101,44 @@ public class SubService {
             throwables.printStackTrace();
         }
         return serviceNames;
+    }
+
+    public void deleteSubService(){
+        Postgres.Update("delete from package_deals p where p.id in (select distinct p.id from package_deals p, subservices s where p.subservice_id = s.id and s.name = '"+this.name+"')");
+        Postgres.Update("delete from subservices s where s.name like '"+this.name+"'");
+    }
+
+    public void addSubService() {
+        int id = 0;
+        try {
+            ResultSet rs = Postgres.Execute("select s.id from services s where s.name = '"+this.serviceName+"'");
+            while (rs.next()) id = rs.getInt("id");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        Postgres.Update("insert into subservices (name, price, tax, pricing, service_id, description) values ('"+this.name+"', "+this.price+", "+this.tax+", '"+this.type+"', "+id+", '"+this.description+"')");
+    }
+
+    public void changePrice() {
+        Postgres.Update("update subservices set price = "+this.price+" where name = '"+this.name+"'");
+    }
+
+    public void changeTax() {
+        Postgres.Update("update subservices  set tax = "+this.tax+" where name = '"+this.name+"'");
+    }
+
+    public void changeDescription() {
+        Postgres.Update("update subservices set description = '"+this.description+"' where name = '"+this.name+"'");
+    }
+
+    public boolean chckSubServiceName() {
+        try {
+            ResultSet rs = Postgres.Execute("select * from subservices s where s.name = '"+this.name+"'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     @Override

@@ -18,142 +18,181 @@
 </head>
 <body>
 <nav class="navbar navbar-fixed-top navbar-light bg-info navbar-expand-md">
-		<a class="navbar-brand mr-auto" href = "/">
-			<div class="logo"></div>
-		</a>
-		
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
-			<span class="navbar-toggler-icon"> </span>
-		</button>
-		<div class="collapse navbar-collapse" id="menu">
-			<ul class="navbar-nav">
-                <li sec:authorize="hasAuthority('1')" class="nav-item" style="width:240px"><a class="nav-link" href="/panel">Panel Sterowania</a></li>
-                <li class="nav-item" style="width:180px"><a class="nav-link" href="/">Strona Domowa</a></li>
-				<li class="nav-item"><a class="nav-link" href = "/zorganizuj-impreze">Oferta</a></li>
-				<li class="nav-item"><a class="nav-link" href = "/o-nas">O nas</a></li>
-				<li class="nav-item"><a class="nav-link" href = "/kontakt">Kontakt</a></li>
-				<li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href = "/zarejestruj">Zarejestruj</a></li>
-                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
-                <li sec:authorize="isAuthenticated()" class="nav-item" style="width:240px"><a class="nav-link" href="/profil"><span sec:authentication="name"></span></a></li>
-			</ul>
-	</div>
-	</nav>
+    <a class="navbar-brand mr-auto" href="/">
+        <div class="logo"></div>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
+        <span class="navbar-toggler-icon"> </span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav">
+            <li sec:authorize="hasAuthority('1')" class="nav-item" style="width:240px"><a class="nav-link"
+                                                                                          href="/panel">Panel
+                Sterowania</a></li>
+            <li class="nav-item" style="width:180px"><a class="nav-link" href="/">Strona Domowa</a></li>
+            <li class="nav-item"><a class="nav-link" href="/zorganizuj-impreze">Oferta</a></li>
+            <li class="nav-item"><a class="nav-link" href="/o-nas">O nas</a></li>
+            <li class="nav-item"><a class="nav-link" href="/kontakt">Kontakt</a></li>
+            <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zarejestruj">Zarejestruj</a>
+            </li>
+            <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
+            <li sec:authorize="isAuthenticated()" class="nav-item" style="width:240px"><a class="nav-link"
+                                                                                          href="/profil"><span
+                    sec:authentication="name"></span></a></li>
+        </ul>
+    </div>
+</nav>
+<div th:if="${window}" class="col-sm-6 offset-sm-3" id="sms" style="text-align:center">
+    <br>
+    <span th:if="${wrongUsername}" class="ol-sm-6 error">Błędny e-mail<br></span>
+    <span th:if="${userDeleted}" class="ol-sm-6 confirmation">Usunięto użytkownika<br></span>
+    <span th:if="${isAdmin}" class="ol-sm-6 confirmation">Mianowano adminem<br></span>
+    <span th:if="${isUser}" class="ol-sm-6 confirmation">Zdegradowano admina<br></span>
+    <span th:if="${wrongServiceName}" class="ol-sm-6 error">Błędna nazwa kategorii<br></span>
+    <span th:if="${activeSubServices}" class="ol-sm-6 error">Usuń najpierw wszystkie usługi z tej kategorii. Uwaga! Usuniesz też wszystkie pakiety użytkowników z tymi usługami<br></span>
+    <span th:if="${serviceDeleted}" class="ol-sm-6 confirmation">Usunięto kategorię<br></span>
+    <span th:if="${serviceNameExists}" class="ol-sm-6 error">Nazwa kategorii już istnieje<br></span>
+    <span th:if="${serviceAdded}" class="ol-sm-6 confirmation">Dodano kategorię<br></span>
+    <span th:if="${wrongSubServiceName}" class="ol-sm-6 error">Nie ma takiej usługi<br></span>
+    <span th:if="${subServiceDeleted}" class="ol-sm-6 confirmation">Usunięto usługę<br></span>
+    <span th:if="${wrongSubServiceName2}" class="ol-sm-6 error">Jest już taka usługa<br></span>
+    <span th:if="${wrongTaxValue}" class="ol-sm-6 error">Podaj wartość podatku z zakresu 0-100%<br></span>
+    <span th:if="${wrongPrice}" class="ol-sm-6 error">Cena nie może być ujemna<br></span>
+    <span th:if="${subServiceAdded}" class="ol-sm-6 confirmation">Dodano usługę<br></span>
+    <span th:if="${priceChanged}" class="ol-sm-6 confirmation">Zmieniono cenę usługi<br></span>
+    <span th:if="${taxChanged}" class="ol-sm-6 confirmation">Zmieniono wysokość podatku<br></span>
+    <span th:if="${descriptionChanged}" class="ol-sm-6 confirmation">Zmieniono opis usługi<br></span>
+    <span th:if="${emptyCode}" class="ol-sm-6 error">Podaj kod promocyjny<br></span>
+    <span th:if="${noCodes}" class="ol-sm-6 error">Liczba kodów musi być większa od 0<br></span>
+    <span th:if="${codesAdded}" class="ol-sm-6 confirmation">Kody zostały wygenerowane<br></span>
+    <span th:if="${noCodesInDB}" class="ol-sm-6 error">Nie ma takich kodów w bazie danych<br></span>
+    <span th:if="${promoCodesDeleted}" class="ol-sm-6 confirmation">Kody zostały usunięte<br></span>
+</div>
 <div class="col-sm-6 offset-sm-3" id="users">
-		<span class="title">Użytkownicy</span><br>
-		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
-		<span class="functionName">Usuń konto</span>
-		<input class="ol-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
-		 <input class="ol-sm-4" type="submit" value="Usuń">
-		</form>
-		
-		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
-		<span class="functionName">Nadaj funkcję administratora</span>
-		<input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
-		 <input class="ol-sm-6" type="submit" value="Mianuj adminem">
-		</form>
-		
-		<form class="signin" th:action="@{/panel-user}" th:object="${newUser}" method="post">
-		<span class="functionName">Nadaj funkcję użytkownika</span>
-		<input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
-		 <input class="ol-sm-6" type="submit" value="Zdegraduj admina">
-		</form>
-				
+    <span class="title">Użytkownicy</span><br>
+    <form class="signin" th:action="@{/panel-user-delete}" th:object="${newUser}" method="post">
+        <span class="functionName">Usuń konto</span>
+        <input class="ol-sm-4" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+        <input class="ol-sm-4" type="submit" value="Usuń">
+    </form>
+
+    <form class="signin" th:action="@{/panel-user-admin}" th:object="${newUser}" method="post">
+        <span class="functionName">Nadaj funkcję administratora</span>
+        <input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+        <input class="ol-sm-6" type="submit" value="Mianuj adminem">
+    </form>
+
+    <form class="signin" th:action="@{/panel-user-user}" th:object="${newUser}" method="post">
+        <span class="functionName">Nadaj funkcję użytkownika</span>
+        <input class="ol-sm-6" type="text" name="username" placeholder="e-mail" th:field="${newUser.username}">
+        <input class="ol-sm-6" type="submit" value="Zdegraduj admina">
+    </form>
 </div>
 
 <div class="col-sm-6 offset-sm-3" id="services">
-<span class="title">Kategorie świadczonych usług</span><br>
-	<form class="signin" th:action="@{/panel-service}" th:object="${newService}" method="post">
-		<span class="functionName">Usuń kategorię</span>
-		<input class="ol-sm-6" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
-		 <input class="ol-sm-6" type="submit" value="Usuń">
-		</form>
-		
-		<form class="signin" th:action="@{/panel-service}" th:object="${newService}" method="post">
-		<span class="functionName">Dodaj kategorię</span>
-		<input class="ol-sm-4" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
-	<!--	<input class="ol-sm-4" list="servicetype" placeholder="rodzaj kategorii" th:field="${newService.choice}">-->
+    <span class="title">Kategorie świadczonych usług</span><br>
+    <form class="signin" th:action="@{/panel-service-delete}" th:object="${newService}" method="post">
+        <span class="functionName">Usuń kategorię</span>
+        <input class="ol-sm-6" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
+        <input class="ol-sm-6" type="submit" value="Usuń">
+    </form>
 
-			<select class="ol-sm-6 adminselect" list="servicetype" placeholder="typ" th:field="${newService.choice}">
-				<datalist class="ol-sm-6 form-control" id="servicetype">
-					<option	th:text="'kategoria wielokrotnego wyboru (np katering)'"
-							   th:value="'multi'" ></option>
-					<option	th:text="'kategoria jednokrotnego wyboru (np nocleg)'"
-							   th:value="'one'" ></option>
-				</datalist>
-			</select>
+    <form class="signin" th:action="@{/panel-service-add}" th:object="${newService}" method="post">
+        <span class="functionName">Dodaj kategorię</span>
+        <input class="ol-sm-4" type="text" name="name" placeholder="nazwa kategorii" th:field="${newService.name}">
 
-
-		 <input class="ol-sm-4" type="submit" value="Dodaj">
-		</form>
-		
+        <select class="ol-sm-6 adminselect" list="servicetype" placeholder="typ" th:field="${newService.choice}">
+            <datalist class="ol-sm-6 form-control" id="servicetype">
+                <option th:text="'kategoria wielokrotnego wyboru (np katering)'"
+                        th:value="'multi'"></option>
+                <option th:text="'kategoria jednokrotnego wyboru (np nocleg)'"
+                        th:value="'one'"></option>
+            </datalist>
+        </select>
+        <input class="ol-sm-4" type="submit" value="Dodaj">
+    </form>
 </div>
 
 <div class="col-sm-6 offset-sm-3" id="subservices">
-<span class="title">Usługi</span><br>
-	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
-		<span class="functionName">Usuń usługę</span>
-		<input class="ol-sm-6" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.name}">
-		 <input class="ol-sm-6" type="submit" value="Usuń">
-		</form>
-		
-		<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
-		<span class="functionName">Dodaj usługę</span>
-		<input class="ol-sm-2" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.name}">
-			<select class="ol-sm-2 adminselect" list="service" placeholder="rodzaj kategorii" th:field="${newSubService.serviceName}">
-			<datalist class="ol-sm-2 form-control" id="service">
-				<option th:each="s: ${serviceNames}"
-						th:text="${s}"
-						th:value="${s}" />
-			</datalist>
-			</select>
-			<input class="ol-sm-2" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
-			<input class="ol-sm-2" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
+    <span class="title">Usługi</span><br>
+    <form class="signin" th:action="@{/panel-subService-delete}" th:object="${newSubService}" method="post">
+        <span class="functionName">Usuń usługę</span>
+        <input class="ol-sm-6" type="text" name="subServiceName" placeholder="nazwa usługi"
+               th:field="${newSubService.name}">
+        <input class="ol-sm-6" type="submit" value="Usuń">
+    </form>
 
-			<select class="ol-sm-2 adminselect" list="pricing" placeholder="typ" th:field="${newSubService.type}">
-				<datalist class="ol-sm-2 form-control" id="typ">
-					<option	th:text="'cena za osobę'"
-							   th:value="'pp'" ></option>
-					<option	th:text="'cena za usługę'"
-							   th:value="'ps'" ></option>
-				</datalist>
-			</select>
+    <form class="signin" th:action="@{/panel-subService-add}" th:object="${newSubService}" method="post">
+        <span class="functionName">Dodaj usługę</span>
+        <input class="ol-sm-2" type="text" name="subServiceName" placeholder="nazwa usługi"
+               th:field="${newSubService.name}">
+        <select class="ol-sm-2 adminselect" list="service" placeholder="rodzaj kategorii"
+                th:field="${newSubService.serviceName}">
+            <datalist class="ol-sm-2 form-control" id="service">
+                <option th:each="s: ${serviceNames}"
+                        th:text="${s}"
+                        th:value="${s}"/>
+            </datalist>
+        </select>
+        <input class="ol-sm-2" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
+        <input class="ol-sm-2" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
+        <select class="ol-sm-2 adminselect" list="pricing" placeholder="typ" th:field="${newSubService.type}">
+            <datalist class="ol-sm-2 form-control" id="typ">
+                <option th:text="'cena za osobę'"
+                        th:value="'pp'"></option>
+                <option th:text="'cena za usługę'"
+                        th:value="'ps'"></option>
+            </datalist>
+        </select>
+        <input class="ol-sm-12" type="text" name="description" placeholder="opis usługi"
+               th:field="${newSubService.description}">
+        <input class="ol-sm-2" type="submit" value="Dodaj">
+    </form>
 
-		 <input class="ol-sm-2" type="submit" value="Dodaj">
-		</form>
+    <form class="signin" th:action="@{/panel-subService-price}" th:object="${newSubService}" method="post">
+        <span class="functionName">Zmień cenę usługi</span>
+        <input class="ol-sm-4" type="text" name="subServiceName" placeholder="nazwa usługi"
+               th:field="${newSubService.name}">
+        <input class="ol-sm-4" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
+        <input class="ol-sm-4" type="submit" value="Modyfikuj">
+    </form>
 
-	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
-		<span class="functionName">Zmień cenę usługi</span>
-		<input class="ol-sm-4" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.serviceName}">
-		<input class="ol-sm-4" type="number" placeholder="cena" name="price" th:attr="field=${newSubService.price}">
-		<input class="ol-sm-4" type="submit" value="Modyfikuj">
-	</form>
+    <form class="signin" th:action="@{/panel-subService-tax}" th:object="${newSubService}" method="post">
+        <span class="functionName">Zmień wysokość podatku</span>
+        <input class="ol-sm-4" type="text" name="subServiceName" placeholder="nazwa usługi"
+               th:field="${newSubService.name}">
+        <input class="ol-sm-4" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
+        <input class="ol-sm-4" type="submit" value="Modyfikuj">
+    </form>
 
-	<form class="signin" th:action="@{/panel-subService}" th:object="${newSubService}" method="post">
-		<span class="functionName">Zmień wysokość podatku</span>
-		<input class="ol-sm-4" type="text" name="username" placeholder="nazwa usługi" th:field="${newSubService.serviceName}">
-		<input class="ol-sm-4" type="number" placeholder="podatek" name="tax" th:attr="field=${newSubService.tax}">
-		<input class="ol-sm-4" type="submit" value="Modyfikuj">
-	</form>
-
+    <form class="signin" th:action="@{/panel-subService-description}" th:object="${newSubService}" method="post">
+        <span class="functionName">Zmień opis usługi</span>
+        <input class="ol-sm-4" type="text" name="subServiceName" placeholder="nazwa usługi"
+               th:field="${newSubService.name}">
+        <input class="ol-sm-4" type="text" placeholder="opis usługi" name="description"
+               th:attr="field=${newSubService.description}">
+        <input class="ol-sm-4" type="submit" value="Modyfikuj">
+    </form>
 </div>
 
 
 <div class="col-sm-6 offset-sm-3" id="promo_codes">
-	<form class="signin" th:action="@{/panel-promo-code}" th:object="${newPromoCode}" method="post">
-		<span class="functionName">Wygeneruj kody promocyjne</span>
-		<input class="ol-sm-3" type="text" name="code" placeholder="kod promocyjny" th:field="${newPromoCode.code}">
-		<input class="ol-sm-3" type="number" placeholder="cena" name="value" th:attr="field=${newPromoCode.value}">
-		<input class="ol-sm-3" type="number" placeholder="ilość" name="amount" th:attr="field=${newPromoCode.amount}">
-		 <input class="ol-sm-3" type="submit" value="Dodaj">
-		</form>
-		
-		<form class="signin" th:action="@{/panel-promo-code}" th:object="${newPromoCode}" method="post">
-		<span class="functionName">Usuń kody promocyjne</span>
-		<input class="ol-sm-6" type="text" name="username" placeholder="nazwa kategorii" th:field="${newPromoCode.code}">
-		 <input class="ol-sm-6" type="submit" value="Usuń">
-		</form>
-		
+    <form class="signin" th:action="@{/panel-promo-code-add}" th:object="${newPromoCode}" method="post">
+        <span class="functionName">Wygeneruj kody promocyjne</span>
+        <input class="ol-sm-3" type="text" name="code" placeholder="kod promocyjny" th:field="${newPromoCode.code}">
+        <input class="ol-sm-3" type="number" placeholder="cena" name="value" th:attr="field=${newPromoCode.value}">
+        <input class="ol-sm-3" type="number" placeholder="ilość" name="amount" th:attr="field=${newPromoCode.amount}">
+        <input class="ol-sm-3" type="submit" value="Dodaj">
+    </form>
+
+    <form class="signin" th:action="@{/panel-promo-code-delete}" th:object="${newPromoCode}" method="post">
+        <span class="functionName">Usuń kody promocyjne</span>
+        <input class="ol-sm-6" type="text" name="code" placeholder="nazwa kategorii" th:field="${newPromoCode.code}">
+        <input class="ol-sm-6" type="submit" value="Usuń">
+    </form>
 </div>
+
 <div class="footer">
     <a href="/">
         <div class="logo"></div>
@@ -167,8 +206,12 @@
         <div style="clear:both"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
 <script scr="js/bootstrap.min.js"></script>
 </body>
 </html>
