@@ -46,4 +46,6 @@ Project is created with:
 
 ##Team
 [![Rafał Chaciński](https://avatars1.githubusercontent.com/u/62349543?s=460&u=fd191c1527d1ca77c005c7044c6d202c04437c13&v=4)](https://github.com/chojrak)  | [![Piotr Malczewski](https://avatars1.githubusercontent.com/u/66552655?s=460&v=4)](https://github.com/MalczewskiPiotr)
+---|---
+[Rafał Chaciński](https://github.com/chojrak) |[Piotr Malczewski](https://github.com/MalczewskiPiotr)
 
