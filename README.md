@@ -13,7 +13,7 @@ A webapp connected to DataBase allows to compose your own offer and save it on t
 The project was prepared as part of a course led by 
 <a href="https://github.com/piotrolot1" rel="nofollow">Piotr Wrona</a>.
 
-![Algorithm schema]	
+
 ## Technologies
 Project is created with:
 * Java version: 8
