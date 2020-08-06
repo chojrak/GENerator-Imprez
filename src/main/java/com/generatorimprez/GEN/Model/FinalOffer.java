@@ -3,27 +3,30 @@ package com.generatorimprez.GEN.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class FinalOffer extends PackageDeal {
     String promoCode;
-    String type;
-    int value;
-    int packageDealId;
+    //   String type;
+    int promoCodeValue;
 
-    public FinalOffer (){}
+
+    public FinalOffer() {
+    }
 
     public FinalOffer(PackageDeal packageDeal) {
         super.subServices = packageDeal.getSubServices();
         super.idUser = packageDeal.getIdUser();
-        super.type = packageDeal.getType();
+        super.packageDealId = packageDeal.getPackageDealId();
+        //   super.type = packageDeal.getType();
     }
 
 
     public FinalOffer(PackageDeal packageDeal, int liczbaOsob, String promoCode) {
         super.subServices = packageDeal.getSubServices();
         super.idUser = packageDeal.getIdUser();
-        super.type = packageDeal.getType();
+        //      super.type = packageDeal.getType();
         super.liczbaOsob = liczbaOsob;
         this.promoCode = promoCode;
     }
@@ -34,11 +37,11 @@ public class FinalOffer extends PackageDeal {
 
     public void setPromoCode(String promoCode) {
         try {
-            ResultSet rs = Postgres.Execute("select * from promo_codes where code = '" + promoCode+"'");
+            ResultSet rs = Postgres.Execute("select * from promo_codes where code = '" + promoCode + "'");
             while (rs.next()) {
                 this.promoCode = promoCode;
-                this.type = rs.getString("type");
-                this.value = rs.getInt("value");
+                //   this.type = rs.getString("type");
+                this.promoCodeValue = rs.getInt("value");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,13 +62,15 @@ public class FinalOffer extends PackageDeal {
 
         try {
             ResultSet rs = Postgres.Execute("select s.name serwis, sum(case when ss.pricing = 'pp' then ss.price * " + this.liczbaOsob + " else ss.price end) price, sum(case when ss.pricing = 'pp' then price * " + this.liczbaOsob + "*ss.tax /100 else price* ss.tax/100 end) tax from subservices ss, services s where s.id = ss.service_id and ss.id in" + sb.toString() + " group by s.name");
-            while (rs.next()) {TreeMap<String, Float> prices = new TreeMap<String, Float>();
+            while (rs.next()) {
+                TreeMap<String, Float> prices = new TreeMap<String, Float>();
                 float p = rs.getFloat("price");
                 float t = rs.getFloat("tax");
                 prices.put(" +", p);
                 prices.put("VAT = ", t);
-                prices.put("ZŁ", p+t);
-                names.put(rs.getString("serwis"), prices);}
+                prices.put("ZŁ", p + t);
+                names.put(rs.getString("serwis"), prices);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -94,8 +99,8 @@ public class FinalOffer extends PackageDeal {
 
     }
 
-    public ArrayList<String> getServiceList (){
-        ArrayList<String> lista = new ArrayList<String> ();
+    public ArrayList<String> getServiceList() {
+        ArrayList<String> lista = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
         sb.append("(");
         for (int a : this.subServices) {
@@ -115,7 +120,7 @@ public class FinalOffer extends PackageDeal {
 
     }
 
-    public TreeMap<String, String> getDescriptions (){
+    public TreeMap<String, String> getDescriptions() {
         TreeMap<String, String> descriptions = new TreeMap<String, String>();
         StringBuilder sb = new StringBuilder();
         sb.append("with lista as (select s.name serviceName, ss.description, row_number()over(partition by s.name order by ss.description) miejsce from subservices ss, services s where s.id = ss.service_id and ss.id in (");
@@ -128,7 +133,7 @@ public class FinalOffer extends PackageDeal {
         sb.append("and ss.description is not null) \n select baza.serviceName, coalesce(baza.description, ' ')||' '||coalesce(m2.description, ' ')||' '||coalesce(m3.description, ' ')||' '||\n");
         sb.append("coalesce(m4.description, ' ')||' '||coalesce(m5.description, ' ')||' '||coalesce(m6.description, ' ')||' '||coalesce(m7.description, ' ')||' '||coalesce(m8.description, ' ')||' '||coalesce(m9.description, ' ')||' '||coalesce(m10.description, ' ') description \n");
         sb.append("from (select * from lista where miejsce = 1) baza \n");
-        for (int i = 2; i <= 10; i++){
+        for (int i = 2; i <= 10; i++) {
             sb.append("left join (select * from lista where miejsce = ");
             sb.append(i);
             sb.append(") m");
@@ -136,7 +141,7 @@ public class FinalOffer extends PackageDeal {
             sb.append(" on m");
             sb.append(i);
             sb.append(".serviceName = baza.serviceName \n");
-          }
+        }
 
         for (int a : this.subServices) {
             try {
@@ -150,22 +155,79 @@ public class FinalOffer extends PackageDeal {
     }
 
 
-    public int getPackageDealId() {
-        return packageDealId;
+    public int getPromoCodeValue() {
+        return promoCodeValue;
     }
 
-    public void setPackageDealId(int packageDealId) {
-        this.packageDealId = packageDealId;
+    public void setPromoCodeValue(int promoCodeValue) {
+        this.promoCodeValue = promoCodeValue;
     }
 
-    public void getOfferById (){
+    public void getOfferById() {
         try {
-            ResultSet rs = Postgres.Execute("select pd.subservice_id from package_deals pd, subservices ss where pd.subservice_id = ss.id and pd.id = "+this.packageDealId);
+            ResultSet rs = Postgres.Execute("select pd.subservice_id from package_deals pd, subservices ss where pd.subservice_id = ss.id and pd.id = " + this.packageDealId);
             while (rs.next()) this.subServices.add(rs.getInt("subservice_id"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+    }
+
+    public void closeDeal() {
+        Postgres.Update("insert into final_offers (promo_code, promo_code_value, package_deal_id, number_of_people) values ('" + this.promoCode + "', " + this.promoCodeValue + ", " + this.packageDealId +", "+this.liczbaOsob+ ")");
+        PromoCode.deletePromoCode(this.promoCode);
+    }
+
+    public void getFinalOffer(String username) {
+        try {
+            ResultSet rs = Postgres.Execute("select f.promo_code_value, f.number_of_people from users u, package_deals p, final_offers f where u.id = p.user_id and f.package_deal_id = p.id and u.username ='" + username + "'");
+            while (rs.next()) {
+                this.liczbaOsob = rs.getInt("number_of_people");
+                this.promoCodeValue = rs.getInt("promo_code_value");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public float getFinalPrice(String username){
+        float price = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        for (int a : this.subServices) {
+            sb.append(a);
+            sb.append(", ");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+        sb.append(")");
+
+        try {
+            ResultSet rs = Postgres.Execute("select sum(case when ss.pricing = 'pp' then ss.price * " + this.liczbaOsob + " else ss.price end + case when ss.pricing = 'pp' then price * " + this.liczbaOsob + "*ss.tax /100 else price* ss.tax/100 end) -"+this.promoCodeValue+" price from subservices ss, services s where s.id = ss.service_id and ss.id in" + sb.toString());
+            while (rs.next()) price = rs.getFloat("price");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return price;
+    }
+
+    public float getFinalPrice(){
+        float price = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        for (int a : this.subServices) {
+            sb.append(a);
+            sb.append(", ");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+        sb.append(")");
+
+        try {
+            ResultSet rs = Postgres.Execute("select sum(case when ss.pricing = 'pp' then ss.price * " + this.liczbaOsob + " else ss.price end + case when ss.pricing = 'pp' then price * " + this.liczbaOsob + "*ss.tax /100 else price* ss.tax/100 end) -"+this.promoCodeValue+" price from subservices ss, services s where s.id = ss.service_id and ss.id in" + sb.toString());
+            while (rs.next()) price = rs.getFloat("price");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return price;
     }
 
 

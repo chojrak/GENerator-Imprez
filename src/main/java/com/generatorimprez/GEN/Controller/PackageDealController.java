@@ -15,10 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 public class PackageDealController {
 
     @GetMapping("/")
-    public String getHome(Model model, User user, PackageDeal packageDeal) {
+    public String getHome(Model model, User user, PackageDeal packageDeal, FinalOffer finalOffer,  HttpServletRequest request) {
         model.addAttribute("block", 0);
         model.addAttribute("offer", new FinalOffer(packageDeal));
-        return "index";
+        if (request.getUserPrincipal() != null) {
+        if(PackageDeal.chckPackageDeal(User.chckIdUser(request.getUserPrincipal().getName())))
+            model.addAttribute("partyInvisible", true);
+        else model.addAttribute("partyInvisible", false);}
+            return "index";
     }
 
     @GetMapping("/zorganizuj-impreze")
@@ -39,9 +43,11 @@ public class PackageDealController {
 
 
     @GetMapping("/podsumowanie")
-    public String getOferta(@ModelAttribute("offer") FinalOffer finalOffer, SubServiceList subServiceList, Model model) {
+    public String getOferta(@ModelAttribute("offer") FinalOffer finalOffer, SubServiceList subServiceList, Model model, HttpServletRequest request) {
         model.addAttribute("descriptions", finalOffer.getDescriptions());
         model.addAttribute("prices", finalOffer.getPrices());
+        model.addAttribute("promo", finalOffer.getPromoCodeValue());
+        model.addAttribute("finalPrice", finalOffer.getFinalPrice());
         return "pakiet";
     }
 
@@ -51,6 +57,7 @@ public class PackageDealController {
         String[] tab = subServiceList.getSubServiceName().split(",");
         for (String s : tab) finalOffer.addSubService(SubService.getSubServiceId(s));
         if (request.getUserPrincipal() != null) {
+            if(PackageDeal.chckPackageDeal(User.chckIdUser(request.getUserPrincipal().getName()))) PackageDeal.deletePackageDeal(User.chckIdUser(request.getUserPrincipal().getName()));
             finalOffer.setType(User.isAdmin(request.getUserPrincipal().getName()));
             finalOffer.setIdUser(User.chckIdUser(request.getUserPrincipal().getName()));
             finalOffer.savePackageDeal();
@@ -59,8 +66,11 @@ public class PackageDealController {
     }
 
     @PostMapping("/impreza-prawie-gotowa")
-    public String newOffer(@ModelAttribute("offer") FinalOffer finalOffer, @ModelAttribute("pakiet") PackageDeal packageDeal, User user, Model model) {
-
+    public String newOffer(@ModelAttribute("offer") FinalOffer finalOffer, @ModelAttribute("pakiet") PackageDeal packageDeal, User user, Model model, HttpServletRequest request) {
+        if (request.getUserPrincipal() != null) { if(PromoCode.chckPromoCode(finalOffer.getPromoCode()))
+            finalOffer.setPromoCodeValue(PromoCode.chckPromoCodeValue(finalOffer.getPromoCode()));
+            finalOffer.closeDeal();
+        }
         return "redirect:/podsumowanie";
     }
 
@@ -68,5 +78,12 @@ public class PackageDealController {
     public String getPackageDeal(@ModelAttribute("offer") FinalOffer finalOffer, Model model, User user, PackageDeal packageDeal) {
         finalOffer.getOfferById();
         return "redirect:/impreza-prawie-gotowa";
+    }
+
+    @PostMapping(value = "/party")
+    public String myParty(@ModelAttribute(name = "newUser") User user, Model model, PackageDeal packageDeal, @ModelAttribute(name = "offer") FinalOffer finalOffer, HttpServletRequest request) {
+        finalOffer.getPackageDeal(User.chckIdUser(request.getUserPrincipal().getName()));
+        finalOffer.getFinalOffer(request.getUserPrincipal().getName());
+        return "redirect:/podsumowanie";
     }
 }

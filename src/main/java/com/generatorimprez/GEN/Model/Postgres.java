@@ -230,7 +230,8 @@ public class Postgres implements Serializable {
 			"(11, 'public', 1, 37),\n"+
 			"(11, 'public', 1, 33);\n"+
             "create table if not exists promo_codes (id int, code varchar(4000), type varchar(400), value int);\n"+
-               "create table if not exists reminder_tokens (id serial, token varchar(4000), user_id int, expiration_date timestamp, primary key (id), foreign key(user_id) references users(id));");
+            "create table if not exists reminder_tokens (id serial, token varchar(4000), user_id int, expiration_date timestamp, primary key (id), foreign key(user_id) references users(id));\n"+
+            "create table if not exists final_offers (id serial, promo_code varchar(4000), promo_code_value int, package_deal_id int, number_of_people int, primary key (id));");
     try {
         FileOutputStream fos = new FileOutputStream("src\\main\\resources\\static\\sql.data");
         ObjectOutputStream oos = new ObjectOutputStream(fos);

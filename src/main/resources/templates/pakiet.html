@@ -36,7 +36,17 @@
             <li class="nav-item"><a class="nav-link" href="/kontakt">Kontakt</a></li>
             <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zarejestruj">Zarejestruj</a></li>
             <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/zaloguj">Zaloguj</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item" style="width:240px"><a class="nav-link" href="/profil"><span sec:authentication="name"></span></a></li>
+            <li class="dropdown">
+                <div sec:authorize="isAuthenticated()" class="nav-item dropbtn" style="width:240px"><a class="nav-link"><span
+                        sec:authentication="name"></span></a>
+                    <div class="dropdown-content">
+                        <a class="nav-link" href="/logout">Wyloguj</a>
+                        <form th:action="@{/party}" type="submit" method="post">
+                            <button class="nav-link party" name="submit" type="submit" value="value">Moja impreza</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
@@ -59,6 +69,16 @@
                 </span>
     </div>
 
+    <div th:unless="${promo == 0}" th:object="${promo}">
+            <span>RABAT: </span>
+            <span th:text="${promo}"></span><br>
+    </div>
+
+    <div  th:object="${finalPrice}">
+        <span>RAZEM: </span>
+        <span th:text="${finalPrice}"></span><br>
+    </div>
+
     <div class="ol-sm-6 offset-sm-4" type="button" value="Zorganizuj imprezę"></div>
     </div>
 </div>
@@ -69,11 +89,11 @@
         <div class="logo"></div>
     </a>
     <div class="socials">
-        <div class="fb"><i class="icon-facebook"></i></div>
-        <div class="snap"><i class="icon-snapchat-ghost"></i></div>
-        <div class="tw"><i class="icon-twitter"></i></div>
-        <div class="insta"><i class="icon-instagram"></i></div>
-        <div class="pinterest"><i class="icon-pinterest"></i></div>
+        <a href="https://pl-pl.facebook.com/" target="_blank"><div class="fb"><i class="icon-facebook"></i></div></a>
+        <a href="https://www.snapchat.com/" target="_blank"><div class="snap"><i class="icon-snapchat-ghost"></i></div></a>
+        <a href="https://twitter.com/?lang=pl" target="_blank"><div class="tw"><i class="icon-twitter"></i></div></a>
+        <a href="https://www.instagram.com/?hl=pl" target="_blank"><div class="insta"><i class="icon-instagram"></i></div></a>
+        <a href="https://pl.pinterest.com/" target="_blank"><div class="pinterest"><i class="icon-pinterest"></i></div></a>
         <div style="clear:both"></div>
     </div>
 </div>

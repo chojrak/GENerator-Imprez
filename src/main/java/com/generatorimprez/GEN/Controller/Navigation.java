@@ -1,11 +1,15 @@
 package com.generatorimprez.GEN.Controller;
 
+import com.generatorimprez.GEN.Model.FinalOffer;
+import com.generatorimprez.GEN.Model.PackageDeal;
 import com.generatorimprez.GEN.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class Navigation {
@@ -14,27 +18,30 @@ public class Navigation {
 
 
     @GetMapping("/zarejestruj")
-    public String signUp(Model model) {
+    public String signUp(Model model, PackageDeal packageDeal, FinalOffer finalOffer) {
         model.addAttribute("newUser", new User());
+        model.addAttribute("offer", new FinalOffer(packageDeal));
         return "zarejestruj";
     }
 
     @GetMapping("/o-nas")
-    public String aboutUs(Model model) {
+    public String aboutUs(Model model, PackageDeal packageDeal, FinalOffer finalOffer) {
         model.addAttribute("newUser", new User());
-        model.addAttribute("userList", User.getAllUsers());
+        model.addAttribute("offer", new FinalOffer(packageDeal));
         return "onas";
     }
 
     @GetMapping("/zaloguj")
-    public String signIn(Model model) {
+    public String signIn(Model model, PackageDeal packageDeal, FinalOffer finalOffer) {
         model.addAttribute("newUser", new User());
+        model.addAttribute("offer", new FinalOffer(packageDeal));
         return "zaloguj";
     }
 
 
     @GetMapping("/kontakt")
-    public String contact(Model model) {
+    public String contact(Model model, PackageDeal packageDeal, FinalOffer finalOffer) {
+        model.addAttribute("offer", new FinalOffer(packageDeal));
         return "kontakt";
     }
 

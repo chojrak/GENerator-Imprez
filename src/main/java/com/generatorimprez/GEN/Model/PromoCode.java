@@ -68,6 +68,14 @@ public class PromoCode {
         Postgres.Update("delete from promo_codes p where p.code like '"+this.code+"'");
     }
 
+    public void deletePromoCode() {
+        Postgres.Update("delete from promo_codes p where p.id = (select min(p.id) from promo_codes p where p.code = '"+this.code+"')");
+    }
+
+    public static void deletePromoCode(String code) {
+        Postgres.Update("delete from promo_codes p where p.id = (select min(p.id) from promo_codes p where p.code = '"+code+"')");
+    }
+
     public boolean chckPromoCode() {
         try {
             ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+this.code+"'");
@@ -76,6 +84,27 @@ public class PromoCode {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean chckPromoCode(String code) {
+        try {
+            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+code+"'");
+            return (rs.next());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public static int chckPromoCodeValue(String code) {
+        int value = 0;
+        try {
+            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+code+"' limit 1");
+            while (rs.next()) value = rs.getInt("value");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return value;
     }
 
 
