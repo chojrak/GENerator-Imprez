@@ -39,7 +39,7 @@ Project is created with:
 
 ## Features
 * autocreating DataBase and tables at first start,
-* SHA-2 (Secure Hash Algorithm 2) using Bouncy Castle, implemented into Spring Security,
+* SHA-2 (Secure Hash Algorithm 2) using Bouncy Castle connected with Spring Security,
 * different previviges based on authority,
 * implemented JavaMail for password recovery
 
