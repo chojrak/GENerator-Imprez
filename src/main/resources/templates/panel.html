@@ -188,6 +188,7 @@
 
 
 <div class="col-sm-6 offset-sm-3" id="promo_codes">
+    <span class="title">Kody promocyjne</span><br>
     <form class="signin" th:action="@{/panel-promo-code-add}" th:object="${newPromoCode}" method="post">
         <span class="functionName">Wygeneruj kody promocyjne</span>
         <input class="ol-sm-3" type="text" name="code" placeholder="kod promocyjny" th:field="${newPromoCode.code}">
