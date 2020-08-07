@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -19,7 +18,8 @@ public class PackageDealController {
         model.addAttribute("block", 0);
         model.addAttribute("offer", new FinalOffer(packageDeal));
         if (request.getUserPrincipal() != null) {
-        if(PackageDeal.chckPackageDeal(User.chckIdUser(request.getUserPrincipal().getName())))
+        if(PackageDeal.chckPackageDeal(User.chckIdUser(request.getUserPrincipal().getName())) &&
+                !User.isAdmin(request.getUserPrincipal().getName()))
             model.addAttribute("partyInvisible", true);
         else model.addAttribute("partyInvisible", false);}
             return "index";
@@ -75,8 +75,14 @@ public class PackageDealController {
     }
 
     @PostMapping("/konfiguracja")
-    public String getPackageDeal(@ModelAttribute("offer") FinalOffer finalOffer, Model model, User user, PackageDeal packageDeal) {
+    public String getPackageDeal(@ModelAttribute("offer") FinalOffer finalOffer, Model model, User user, PackageDeal packageDeal, HttpServletRequest request) {
         finalOffer.getOfferById();
+        if (request.getUserPrincipal() != null) {
+            if(PackageDeal.chckPackageDeal(User.chckIdUser(request.getUserPrincipal().getName()))) PackageDeal.deletePackageDeal(User.chckIdUser(request.getUserPrincipal().getName()));
+            finalOffer.setType(User.isAdmin(request.getUserPrincipal().getName()));
+            finalOffer.setIdUser(User.chckIdUser(request.getUserPrincipal().getName()));
+            finalOffer.savePackageDeal();
+        }
         return "redirect:/impreza-prawie-gotowa";
     }
 

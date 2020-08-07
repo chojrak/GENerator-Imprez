@@ -3,7 +3,6 @@ package com.generatorimprez.GEN.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class FinalOffer extends PackageDeal {
@@ -69,7 +68,7 @@ public class FinalOffer extends PackageDeal {
                 prices.put(" +", p);
                 prices.put("VAT = ", t);
                 prices.put("ZŁ", p + t);
-                names.put(rs.getString("serwis"), prices);
+                if(p > 0) names.put(rs.getString("serwis"), prices);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -146,7 +145,7 @@ public class FinalOffer extends PackageDeal {
         for (int a : this.subServices) {
             try {
                 ResultSet rs = Postgres.Execute(sb.toString());
-                while (rs.next()) descriptions.put(rs.getString("serviceName"), rs.getString("description").trim());
+                while (rs.next()) if(!rs.getString("description").trim().isEmpty()) descriptions.put(rs.getString("serviceName"), rs.getString("description").trim());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -227,7 +226,8 @@ public class FinalOffer extends PackageDeal {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return price;
+        if (price<0) return 0;
+        else return price;
     }
 
 

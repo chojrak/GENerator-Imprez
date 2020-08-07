@@ -61,7 +61,7 @@
             <select th:name="${service.getName()}"
                     th:path="${service.getName()}"
                     th:field="${subServiceList.subServiceName}"
-                    class="form-control"
+                    class="ol-sm-6 form-control"
                     id="select1">
                 <option th:each="subService: ${service.getSubServices()}"
                         th:text="${subService.getName()}"
@@ -75,7 +75,7 @@
             <span th:each="service : ${multi}">
                 <label th:text="${service.getName()}" for="select2"></label>
                 <select multiple
-                        class="form-control"
+                        class="ol-sm-6 form-control"
                         id="select2"
                         th:name="${service.getName()}"
                         th:path="${service.getName()}"
@@ -87,7 +87,7 @@
                 </select>
             </span>
         </div>
-        <input class="ol-sm-6 offset-sm-4" type="submit" value="Dalej">
+        <input class="ol-sm-6" type="submit" value="Dalej">
     </form>
 </div>
 

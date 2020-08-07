@@ -53,16 +53,16 @@
 </nav>
 <div style="clear:both"></div>
 
-<div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
+<div class="col-sm-6 offset-sm-3" id="sign">
     <form class="signin" th:action="@{/impreza-prawie-gotowa}" th:object="${offer}" method="post">
 
-            <span>liczba osób:</span>
-            <input class="ol-sm-6" type="number" name="liczbaOsob"  th:field="${offer.liczbaOsob}"><br>
+            <span>liczba osób:</span><br>
+            <input class="ol-sm-6" type="number" name="liczbaOsob"  th:field="${offer.liczbaOsob}"><br><br>
 
-            <span>kod promocyjny:</span>
+            <span>kod promocyjny:</span><br>
             <input class="ol-sm-6" type="text" name="promoCode"  th:field="${offer.promoCode}"><br>
 
-        <input class="ol-sm-6 offset-sm-4" type="submit" value="Zorganizuj imprezę">
+        <input class="ol-sm-6" type="submit" value="Zorganizuj imprezę">
     </form>
 </div>
 

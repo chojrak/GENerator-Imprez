@@ -61,7 +61,7 @@ public class PromoCode {
     }
 
     public void addPromoCodes() {
-        Postgres.Update("do $$ begin for x in "+nextId+".."+(this.amount+nextId)+" loop insert into promo_codes (id, code, value) values (x, '"+this.code+"', "+this.value+"); raise notice '%' , x; end loop; end $$;");
+        Postgres.Update("do $$ begin for x in "+nextId+".."+(this.amount+nextId-1)+" loop insert into promo_codes (id, code, value) values (x, '"+this.code+"', "+this.value+"); raise notice '%' , x; end loop; end $$;");
     }
 
     public void deletePromoCodes() {

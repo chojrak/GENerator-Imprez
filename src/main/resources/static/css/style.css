@@ -164,6 +164,7 @@ body
 	padding-top: 20px;
 	padding-bottom: 20px;
 	margin-top: 10px;
+	text-align:center
 }
 
 
@@ -267,9 +268,11 @@ input[type=text],
 input[type=password],
 input[type=number],
 input[list],
-.adminselect
+.adminselect,
+.form-control
 {
-	width:300px;
+	min-width:300px;
+	min-height:50px;
 	background-color: #efefef;
 	color:#004045;
 	border: 2px solid #17a2b8;
@@ -296,7 +299,7 @@ input[type=submit],
 .button
 /*input[type=button]*/
 {
-	width:300px;
+	min-width:300px;
 	background-color: #17a2b8;
 	color:#004045;
 	padding: 15px 10px;
@@ -320,6 +323,20 @@ input[type=submit]:hover,
 
 input[type="radio"] {
 
+}
+
+.title 
+{
+	letter-spacing:10px;
+	color:#17a2b8;
+}
+
+.finalPrice
+{
+	color:#004045;
+	text-align:center;
+	letter-spacing:2px;
+	font-size: 25px;
 }
 
 .form

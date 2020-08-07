@@ -54,12 +54,12 @@
 <div class="col-sm-6 offset-sm-3" id="sign" style="margin-top:100px">
     <div class="signin"  th:object="${descriptions}" method="post">
             <span th:each="i : ${descriptions}">
-            <label th:text="${i.key}">
+            <label class="title" th:text="${i.key}">
                 </label> <br>
-                <p th:text="${i.value}"></p>
+                <p class="description" th:text="${i.value}"></p>
             </span>
         </div>
-    <div  th:object="${prices}">
+    <div style="color:#004045" class="signin" th:object="${prices}">
             <span th:each="j : ${prices}">
             <span th:text="${j.key}"></span>:
                  <span th:each="k : ${j.value}">
@@ -69,12 +69,12 @@
                 </span>
     </div>
 
-    <div th:unless="${promo == 0}" th:object="${promo}">
+    <div class="finalPrice"  th:unless="${promo == 0}" th:object="${promo}">
             <span>RABAT: </span>
             <span th:text="${promo}"></span><br>
     </div>
 
-    <div  th:object="${finalPrice}">
+    <div class="finalPrice"  th:object="${finalPrice}">
         <span>RAZEM: </span>
         <span th:text="${finalPrice}"></span><br>
     </div>
