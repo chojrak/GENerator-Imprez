@@ -108,7 +108,7 @@ public class Service {
     }
 
     public void deleteService() {
-        Postgres.Update("delete from services where name like '"+this.name+"'");
+        Postgres.Update("delete from services where name = '"+this.name+"'");
     }
 
     public boolean chckSubServices() {
@@ -123,7 +123,7 @@ public class Service {
 
     public void addService(){
         try {
-            ResultSet rs = Postgres.Execute("select s.* from services s where s.name like '" + this.name+"'");
+            ResultSet rs = Postgres.Execute("select s.* from services s where s.name = '" + this.name+"'");
             if (!rs.next()) Postgres.Update("insert into services (name, choice) values ('"+this.name+"', '"+this.choice+"')");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -132,7 +132,7 @@ public class Service {
 
     public boolean chckServiceName(){
         try {
-            ResultSet rs = Postgres.Execute("select s.* from services s where s.name like '" + this.name+"'");
+            ResultSet rs = Postgres.Execute("select s.* from services s where s.name = '" + this.name+"'");
             return (rs.next());
         } catch (SQLException throwables) {
             throwables.printStackTrace();

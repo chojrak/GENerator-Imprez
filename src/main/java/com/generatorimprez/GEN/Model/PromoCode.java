@@ -65,7 +65,7 @@ public class PromoCode {
     }
 
     public void deletePromoCodes() {
-        Postgres.Update("delete from promo_codes p where p.code like '"+this.code+"'");
+        Postgres.Update("delete from promo_codes p where p.code = '"+this.code+"'");
     }
 
     public void deletePromoCode() {
@@ -78,7 +78,7 @@ public class PromoCode {
 
     public boolean chckPromoCode() {
         try {
-            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+this.code+"'");
+            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code = '"+this.code+"'");
             return (rs.next());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -88,7 +88,7 @@ public class PromoCode {
 
     public static boolean chckPromoCode(String code) {
         try {
-            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+code+"'");
+            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code = '"+code+"'");
             return (rs.next());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -99,7 +99,7 @@ public class PromoCode {
     public static int chckPromoCodeValue(String code) {
         int value = 0;
         try {
-            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code like '"+code+"' limit 1");
+            ResultSet rs = Postgres.Execute("select * from promo_codes p where p.code = '"+code+"' limit 1");
             while (rs.next()) value = rs.getInt("value");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
