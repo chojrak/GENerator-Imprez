@@ -82,9 +82,18 @@ public class Postgres implements Serializable {
     }
 
     public static void newDatabase() {
-
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Podaj hasło:");
+        JPasswordField passwordField = new JPasswordField(25);
+        panel.add(label);
+        panel.add(passwordField);
         String user = JOptionPane.showInputDialog(null, "Podaj login, domyślny dla PostgreSQL to postgres", "SQL", JOptionPane.INFORMATION_MESSAGE);
-        String password = JOptionPane.showInputDialog(null, "Podaj hasło", "SQL", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showConfirmDialog(null, panel, "SQL", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        char[] pass = passwordField.getPassword();
+        StringBuilder sb = new StringBuilder();
+        for (char a : pass) sb.append(a);
+        String password = sb.toString();
+
         try {
             Connection con = DriverManager.getConnection("jdbc:postgresql:", user, password);
             Statement stm = con.createStatement();

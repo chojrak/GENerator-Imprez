@@ -54,7 +54,6 @@ body
 {
 	
 	position:absolute;
-	top:0;
 	right:0;
 	line-height: 300%;
 	text-align: center;
@@ -62,6 +61,11 @@ body
 	
 }
 
+@media (max-width: 767px) {
+  #menu {
+      top:75px;
+  }
+}
 
 
 .nav-item
